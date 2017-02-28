@@ -6,4 +6,7 @@
   <packaging>pom</packaging>
   <name>NetIQ Access Manager Extensions from IDFocus</name>
   <description>Authentication modules, policy extensions and more</description>
+  <modules>
+  	<module>nam-authn-smstoken</module>
+  </modules>
 </project>
