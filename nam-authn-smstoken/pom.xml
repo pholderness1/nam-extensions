@@ -13,5 +13,20 @@
   		<artifactId>nam-util</artifactId>
   		<version>${parent.version}</version>
   	</dependency>
+		<dependency>
+			<groupId>com.novell.nam</groupId>
+			<artifactId>nidp</artifactId>
+			<version>${nam.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.novell.nam</groupId>
+			<artifactId>common</artifactId>
+			<version>${nam.version}</version>
+			<scope>provided</scope>
+		</dependency>
   </dependencies>
+  <properties>
+  	<nam.version>4.2.1</nam.version>
+  </properties>
 </project>
