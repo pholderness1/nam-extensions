@@ -12,6 +12,8 @@
 		<module>nam-util</module>
 		<module>nam-authn-totp</module>
 		<module>nam-authn-password-expiration</module>
+		<module>nam-authn-idpredirect</module>
+		<module>nam-authn-totporsmstoken</module>
 	</modules>
 	<build>
 		<resources>
