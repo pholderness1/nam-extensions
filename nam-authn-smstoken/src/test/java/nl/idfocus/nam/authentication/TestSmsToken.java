@@ -16,12 +16,12 @@ import com.novell.nidp.common.authority.UserAuthority;
 import com.novell.nidp.logging.NIDPLog;
 
 import nl.idfocus.nam.util.MockNIDP;
-import nl.idfocus.nam.sms.BerichtenCentrumService;
+import nl.idfocus.nam.sms.MessageBirdService;
 
 public class TestSmsToken
 {
 
-	BerichtenCentrumService service;
+	MessageBirdService service;
 	ArrayList<UserAuthority> m_UserStores;
 	Properties classProps;
 	AuthClassDefinition rawDefinition;
@@ -32,9 +32,9 @@ public class TestSmsToken
 		MockNIDP.initiateIDP();
 		NIDPLog.createInstance();
 		m_UserStores = MockNIDP.getAuthorities();
-		classProps = getRandstadProperties();
+		classProps = getMessageBirdProperties();
 		rawDefinition = new AuthClassDefinition( "SmsToken", "nl.idfocus.nam.authentication.SmsToken", classProps );
-		service = BerichtenCentrumService.startNewSSLService(8081);
+		service = MessageBirdService.startNewSSLService(8081);
 	}
 
 	@After
@@ -75,24 +75,17 @@ public class TestSmsToken
         assertEquals( LocalAuthenticationClass.SHOW_JSP, newClass.authenticate() );
 	}
 
-	private Properties getRandstadProperties()
+	private Properties getMessageBirdProperties()
 	{
 		Properties props = new Properties();
 		props.setProperty("DEBUG", "true");
-//		props.setProperty("tokenLength", "");
-//		props.setProperty("tokenCharacters", "");
-		props.setProperty("smsProvider", "nl.rgn.sms.BerichtenCentrum");
-		props.setProperty("mobileAttribute", "mobile");
-		props.setProperty("mobileAltAttribute", "telephoneNumber");
-		props.setProperty("expirationCookie", "rsgnlexpcookie");
-		props.setProperty("expirationTime", "2");
-		props.setProperty("expirationAttribute", "smsExpiration");
-		props.setProperty("smsSendTimeout", "1000");
-		props.setProperty("url", "https://localhost:8081/berichtencentrum/1/direct-sms");
-		props.setProperty("applicationId", BerichtenCentrumService.APPLICATION_ID );
-		props.setProperty("apiKey", BerichtenCentrumService.API_KEY );
-		props.setProperty("senderAttribute", "company");
-		props.setProperty("defaultSender", "12345");
+		props.setProperty("smsProvider", "nl.idfocus.nam.sms.MessageBird");
+		props.setProperty("url", "https://localhost:8081/api/sms");
+		props.setProperty("userName", "myUserName" );
+		props.setProperty("password", "myPassword" );
+		props.setProperty("sender", "mySender");
+		props.setProperty("reference", "myReference");
+		props.setProperty("development", "true");
 		return props;
 	}
 }

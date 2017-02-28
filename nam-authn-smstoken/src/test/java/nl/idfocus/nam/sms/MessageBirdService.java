@@ -14,9 +14,6 @@ import javax.net.ssl.SSLSession;
 
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
-import nl.idfocus.nam.util.LogFormatter;
-import nl.rgn.sms.BerichtenCentrum;
-
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.MappingBuilder;
 import com.github.tomakehurst.wiremock.client.RequestPatternBuilder;
@@ -25,19 +22,19 @@ import com.github.tomakehurst.wiremock.client.UrlMatchingStrategy;
 import com.github.tomakehurst.wiremock.client.ValueMatchingStrategy;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 
-public class BerichtenCentrumService
+import nl.idfocus.nam.util.LogFormatter;
+
+public class MessageBirdService
 {
 	private static final Logger		logger			= LogFormatter
-			.getConsoleLogger(BerichtenCentrumService.class.getName());
+			.getConsoleLogger(MessageBirdService.class.getName());
 
-	public static final String		SERVICE_URL			= "/berichtencentrum/1/direct-sms";
-	public static final String		APPLICATION_ID		= "Mobile API";
-	public static final String		API_KEY	= "67821-8792102-8923";
+	public static final String		SERVICE_URL			= "/api/sms";
 	private final WireMockServer	wireMockServer;
 
 	private final int				port;
 
-	private BerichtenCentrumService(int port, boolean secure)
+	private MessageBirdService(int port, boolean secure)
 	{
 		this.port = port;
 		logger.info("Starting embedded Berichtencentrum Service on port " + port);
@@ -60,7 +57,7 @@ public class BerichtenCentrumService
 	private MappingBuilder validSmsRequest()
 	{
 		MappingBuilder bldr = postBuilder(urlEqualTo(SERVICE_URL));
-		ValueMatchingStrategy strategy = matchJsonFieldExact(BerichtenCentrum.PARAM_API_KEY,API_KEY);
+		ValueMatchingStrategy strategy = matchStringContainment("myUserName");
 		return bldr.withRequestBody(strategy)
 				.willReturn(getSuccessResponseDefinition());
 	}
@@ -132,9 +129,9 @@ public class BerichtenCentrumService
 	 * 
 	 * @return
 	 */
-	public static BerichtenCentrumService startNewPlaintextService(int port) throws IOException
+	public static MessageBirdService startNewPlaintextService(int port) throws IOException
 	{
-		return new BerichtenCentrumService(port, false);
+		return new MessageBirdService(port, false);
 	}
 
 	/**
@@ -142,9 +139,9 @@ public class BerichtenCentrumService
 	 * 
 	 * @return
 	 */
-	public static BerichtenCentrumService startNewSSLService(int port) throws IOException
+	public static MessageBirdService startNewSSLService(int port) throws IOException
 	{
-		return new BerichtenCentrumService(port, true);
+		return new MessageBirdService(port, true);
 	}
 
 	public void verify(RequestPatternBuilder requestPatternBuilder)

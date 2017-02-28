@@ -7,11 +7,19 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>nam-authn-totp</artifactId>
+	<name>NAM: TOTP Authentication Module</name>
 	<dependencies>
 		<dependency>
 			<groupId>nl.idfocus.nam</groupId>
 			<artifactId>nam-util</artifactId>
-			<version>${parent.version}</version>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>nl.idfocus.nam</groupId>
+			<artifactId>nam-util</artifactId>
+			<version>${project.parent.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.novell.nam</groupId>
@@ -26,18 +34,30 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.novell.security</groupId>
+			<artifactId>sso</artifactId>
+			<version>${jsso.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>${zxing.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.zxing/javase -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>${zxing.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- Test dependencies -->
-		<dependency>
-			<groupId>nl.idfocus.nam</groupId>
-			<artifactId>nam-util</artifactId>
-			<version>${parent.version}</version>
-			<classifier>tests</classifier>
-		</dependency>
 		<dependency>
 			<groupId>bouncycastle</groupId>
 			<artifactId>bcprov-jdk16</artifactId>
@@ -85,9 +105,11 @@
 		</dependency>
 	</dependencies>
 	<properties>
-		<nam.version>4.0.1</nam.version>
+		<nam.version>4.2.2</nam.version>
 		<servlet.version>3.0.1</servlet.version>
 		<junit.version>4.11</junit.version>
 		<mockito.version>2.3.4</mockito.version>
+		<zxing.version>3.2.1</zxing.version>
+		<jsso.version>3.04</jsso.version>
 	</properties>
 </project>

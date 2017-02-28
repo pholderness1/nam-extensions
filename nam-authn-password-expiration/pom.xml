@@ -10,12 +10,7 @@
 		<dependency>
 			<groupId>nl.idfocus.nam</groupId>
 			<artifactId>nam-util</artifactId>
-			<version>${parent.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>nl.idfocus.nam</groupId>
-			<artifactId>nam-authn-totp</artifactId>
-			<version>${parent.version}</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.novell.nam</groupId>
@@ -46,4 +41,5 @@
 		<nam.version>4.2.1</nam.version>
 		<servlet.version>3.0.1</servlet.version>
 	</properties>
+	<name>NAM: Password Expiration Check</name>
 </project>

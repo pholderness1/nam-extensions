@@ -25,6 +25,7 @@ public class MessageBird implements SmsProvider
 	private static final Level dbglevel = Level.FINE;
 	private static final Level errlevel = Level.SEVERE;
 
+	public static final String PARAM_URL = "url";
 	public static final String PARAM_USR = "userName";
 	public static final String PARAM_PWD = "password";
 	public static final String PARAM_APP = "sender";
@@ -51,7 +52,10 @@ public class MessageBird implements SmsProvider
 			for ( Handler hd : logger.getHandlers() )
 				hd.setLevel(dbglevel);
 		}
-		url				= "https://api.messagebird.com/api/sms";
+		if ( config.getStringValue( PARAM_URL ) == null )
+			url			= "https://api.messagebird.com/api/sms";
+		else
+			url			= config.getStringValue( PARAM_URL );
 		responseType	= "SIMPLE";
 		userName		= config.getStringValue( PARAM_USR );
 		password		= config.getStringValue( PARAM_PWD );

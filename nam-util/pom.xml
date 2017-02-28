@@ -7,13 +7,30 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>nam-util</artifactId>
+	<name>NAM: Utility Libraries</name>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 	<dependencies>
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>com.novell.nam</groupId>
 			<artifactId>nidp</artifactId>
 			<version>${nam.version}</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.novell.nam</groupId>
@@ -32,7 +49,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${servlet.version}</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -72,7 +89,7 @@
 		</dependency>
 	</dependencies>
 	<properties>
-		<nam.version>4.0.1</nam.version>
+		<nam.version>4.2.1</nam.version>
 		<servlet.version>3.0.1</servlet.version>
 		<junit.version>4.11</junit.version>
 		<mockito.version>1.10.19</mockito.version>

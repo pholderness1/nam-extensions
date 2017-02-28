@@ -6,17 +6,17 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>nam-authn-idpredirect</artifactId>
-  <name>Redirect to External IDP</name>
+  <name>NAM: Redirect to External IDP</name>
 	<dependencies>
 		<dependency>
 			<groupId>nl.idfocus.nam</groupId>
 			<artifactId>nam-util</artifactId>
-			<version>${parent.version}</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>nl.idfocus.nam</groupId>
 			<artifactId>nam-authn-totp</artifactId>
-			<version>${parent.version}</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.novell.nam</groupId>

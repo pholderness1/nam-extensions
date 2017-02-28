@@ -10,17 +10,17 @@
 		<dependency>
 			<groupId>nl.idfocus.nam</groupId>
 			<artifactId>nam-util</artifactId>
-			<version>${parent.version}</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>nl.idfocus.nam</groupId>
 			<artifactId>nam-authn-smstoken</artifactId>
-			<version>${parent.version}</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>nl.idfocus.nam</groupId>
 			<artifactId>nam-authn-totp</artifactId>
-			<version>${parent.version}</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.novell.nam</groupId>
@@ -44,8 +44,9 @@
 		<dependency>
 			<groupId>nl.idfocus.nam</groupId>
 			<artifactId>nam-util</artifactId>
-			<version>${parent.version}</version>
-			<classifier>tests</classifier>
+			<version>${project.parent.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>bouncycastle</groupId>
@@ -94,9 +95,10 @@
 		</dependency>
 	</dependencies>
 	<properties>
-		<nam.version>4.0.1</nam.version>
+		<nam.version>4.2.2</nam.version>
 		<servlet.version>3.0.1</servlet.version>
 		<junit.version>4.11</junit.version>
 		<mockito.version>2.3.4</mockito.version>
 	</properties>
+	<name>NAM: TOTP or SMS Token Authentication Module</name>
 </project>
