@@ -9,5 +9,6 @@
   <modules>
   	<module>nam-authn-smstoken</module>
   	<module>nam-util</module>
+  	<module>nam-authn-totp</module>
   </modules>
 </project>
