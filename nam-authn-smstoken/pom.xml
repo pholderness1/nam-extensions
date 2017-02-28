@@ -13,6 +13,7 @@
 			<groupId>nl.idfocus.nam</groupId>
 			<artifactId>nam-util</artifactId>
 			<version>${parent.version}</version>
+			<classifier>tests</classifier>
 		</dependency>
 		<dependency>
 			<groupId>nl.idfocus.nam</groupId>
@@ -37,9 +38,24 @@
 			<version>${servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Test dependencies -->
+		<dependency>
+			<groupId>com.github.tomakehurst</groupId>
+			<artifactId>wiremock</artifactId>
+			<version>${wiremock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<properties>
 		<nam.version>4.2.1</nam.version>
 		<servlet.version>3.0.1</servlet.version>
+		<wiremock.version>1.58</wiremock.version>
+		<junit.version>4.11</junit.version>
 	</properties>
 </project>
