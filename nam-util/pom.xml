@@ -22,6 +22,13 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<!-- Runtime dependency (available on idp), but needed for tests -->
+			<groupId>com.novell</groupId>
+			<artifactId>jcc</artifactId>
+			<version>${nam.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${servlet.version}</version>
@@ -65,7 +72,7 @@
 		</dependency>
 	</dependencies>
 	<properties>
-		<nam.version>4.2.1</nam.version>
+		<nam.version>4.0.1</nam.version>
 		<servlet.version>3.0.1</servlet.version>
 		<junit.version>4.11</junit.version>
 		<mockito.version>1.10.19</mockito.version>

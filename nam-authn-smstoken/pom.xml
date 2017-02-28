@@ -13,7 +13,6 @@
 			<groupId>nl.idfocus.nam</groupId>
 			<artifactId>nam-util</artifactId>
 			<version>${parent.version}</version>
-			<classifier>tests</classifier>
 		</dependency>
 		<dependency>
 			<groupId>nl.idfocus.nam</groupId>
@@ -39,6 +38,12 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- Test dependencies -->
+		<dependency>
+			<groupId>nl.idfocus.nam</groupId>
+			<artifactId>nam-util</artifactId>
+			<version>${parent.version}</version>
+			<classifier>tests</classifier>
+		</dependency>
 		<dependency>
 			<groupId>com.github.tomakehurst</groupId>
 			<artifactId>wiremock</artifactId>
