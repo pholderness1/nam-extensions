@@ -8,5 +8,6 @@
   <description>Authentication modules, policy extensions and more</description>
   <modules>
   	<module>nam-authn-smstoken</module>
+  	<module>nam-util</module>
   </modules>
 </project>

@@ -5,13 +5,5 @@
     <artifactId>nam-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>nam-authn-smstoken</artifactId>
-  <name>SMS Token Authentication Module</name>
-  <dependencies>
-  	<dependency>
-  		<groupId>nl.idfocus.nam</groupId>
-  		<artifactId>nam-util</artifactId>
-  		<version>${parent.version}</version>
-  	</dependency>
-  </dependencies>
+  <artifactId>nam-util</artifactId>
 </project>
