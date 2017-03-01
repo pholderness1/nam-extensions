@@ -6,8 +6,8 @@
 		<artifactId>nam-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>nam-authn-idpredirect</artifactId>
-	<name>NAM: Redirect to External IDP</name>
+	<artifactId>nam-authn-chain</artifactId>
+	<name>NAM: Chain Authentication Methods</name>
 	<dependencies>
 		<dependency>
 			<groupId>nl.idfocus.nam</groupId>
@@ -32,18 +32,18 @@
 			<version>${servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>xerces</groupId>
-			<artifactId>xercesImpl</artifactId>
-			<version>2.8.1</version>
-			<scope>provided</scope>
-		</dependency>
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>nl.idfocus.nam</groupId>
 			<artifactId>nam-util</artifactId>
 			<version>${project.parent.version}</version>
 			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>nl.idfocus.nam</groupId>
+			<artifactId>nam-authn-allowdeny</artifactId>
+			<version>${project.parent.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -77,24 +77,6 @@
 			<groupId>org.jgroups</groupId>
 			<artifactId>jgroups</artifactId>
 			<version>3.6.9.Final</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>xml-security</groupId>
-			<artifactId>xmlsec</artifactId>
-			<version>1.0.5D2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>xalan</groupId>
-			<artifactId>xalan</artifactId>
-			<version>2.6.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

@@ -10,12 +10,17 @@
 	<modules>
 		<module>nam-util</module>
 		<module>nam-authn-password-expiration</module>
-		<module>nam-authn-idpredirect</module>
+		<module>nam-authz-wstrust</module>
+		<module>nam-authn-allowdeny</module>
 		<module>nam-authn-totp</module>
 		<module>nam-authn-smstoken</module>
 		<module>nam-authn-totporsmstoken</module>
-		<module>nam-authz-wstrust</module>
-		<module>nam-authn-allowdeny</module>
+		<module>nam-authn-idpredirect</module>
+		<module>nam-authn-contract-dependency</module>
+		<module>nam-authn-chain</module>
+		<module>nam-authn-krb-fallback</module>
+		<module>nam-authn-x509</module>
+		<module>nam-playground</module>
 	</modules>
 	<build>
 		<resources>

@@ -6,14 +6,9 @@
 		<artifactId>nam-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>nam-authn-idpredirect</artifactId>
-	<name>NAM: Redirect to External IDP</name>
+	<artifactId>nam-playground</artifactId>
+	<name>NAM: Playground Modules for Education</name>
 	<dependencies>
-		<dependency>
-			<groupId>nl.idfocus.nam</groupId>
-			<artifactId>nam-util</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>com.novell.nam</groupId>
 			<artifactId>nidp</artifactId>
@@ -21,21 +16,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.novell.nam</groupId>
-			<artifactId>common</artifactId>
-			<version>${nam.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${servlet.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>xerces</groupId>
-			<artifactId>xercesImpl</artifactId>
-			<version>2.8.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- Test dependencies -->
@@ -47,13 +30,24 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>nl.idfocus.nam</groupId>
+			<artifactId>nam-authn-chain</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>nl.idfocus.nam</groupId>
+			<artifactId>nam-authn-totporsmstoken</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>bouncycastle</groupId>
 			<artifactId>bcprov-jdk16</artifactId>
 			<version>140</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<!-- Runtime dependency (available on idp), but needed for tests -->
 			<groupId>com.novell</groupId>
 			<artifactId>jcc</artifactId>
 			<version>${nam.version}</version>
@@ -66,35 +60,15 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<!-- Runtime dependency (available on idp), but needed for tests -->
 			<groupId>com.novell.nam</groupId>
 			<artifactId>nxpe</artifactId>
 			<version>${nam.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<!-- Runtime dependency (available on idp), but needed for tests -->
 			<groupId>org.jgroups</groupId>
 			<artifactId>jgroups</artifactId>
 			<version>3.6.9.Final</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>xml-security</groupId>
-			<artifactId>xmlsec</artifactId>
-			<version>1.0.5D2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>xalan</groupId>
-			<artifactId>xalan</artifactId>
-			<version>2.6.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
