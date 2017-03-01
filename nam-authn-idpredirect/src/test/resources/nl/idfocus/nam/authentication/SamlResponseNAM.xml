@@ -1,0 +1,64 @@
+<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+	xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Consent="urn:oasis:names:tc:SAML:2.0:consent:obtained"
+	Destination="https://am42.nam.local/nidp/saml2/spassertion_consumer"
+	ID="id4wHAGKMklHpzN-8n3atOCgb7zak" InResponseTo="id3A9U40LRLnVRJvgzYKiR6rDrmSU"
+	IssueInstant="2016-10-26T11:39:58Z" Version="2.0">
+	<saml:Issuer>https://am41.nam.local/nidp/saml2/metadata</saml:Issuer>
+	<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+		<ds:SignedInfo>
+			<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+			<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+			<ds:Reference URI="#id4wHAGKMklHpzN-8n3atOCgb7zak">
+				<ds:Transforms>
+					<ds:Transform
+						Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+					<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+				</ds:Transforms>
+				<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+				<ds:DigestValue>gK1h8VVtq1+Tz4PM4wMYrph6RcM=</ds:DigestValue>
+			</ds:Reference>
+		</ds:SignedInfo>
+		<ds:SignatureValue>
+			a8IkcSe/VrJefIfVv7F6O9iX6DTqpEsa5j+F6FvxnPpfNIrn7xYCL9B9heGxEAFFm9im6FU6tYFU
+			9deyNBqa+U4BdVQJD2jW/ox2pECwHZQ1PzbVt9tzQvPV+pcu67eXRdCSSRg5OIPLr08/ZSHgUVJe
+			FYCO3XyZ3Wopux1YZXTuEy+Dkw0EBnUL7si/BLkSSOV4bJq8XlUQ1NmhH2AJUA03FS3ztOj/xnD+
+			S4HZNNTqY3nQcnIRsacC04jZgm7udOiHxG9aGRgzOh7M0s99Sc35GEZkWjMxCET+5JpXSaa2IGqv
+			/LSjSrvQyn20pcf2sX5V+A3bl0jXBgv4dTJWKQ==
+		</ds:SignatureValue>
+		<ds:KeyInfo>
+			<ds:X509Data>
+				<ds:X509Certificate>
+					MIIE/TCCA+WgAwIBAgIkAhwR/6b9aK0bRckvQMQIfhx8v9zD5dPpim/vLAe6AgIWCxA1MA0GCSqG
+					SIb3DQEBBQUAMDAxGjAYBgNVBAsTEU9yZ2FuaXphdGlvbmFsIENBMRIwEAYDVQQKFAlhbTQxX3Ry
+					ZWUwHhcNMTUwODIyMDg1NzEyWhcNMjUwODIyMDg1NzEyWjAZMRcwFQYDVQQDEw5hbTQxLm5hbS5s
+					b2NhbDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMdpwo1ylX0jkQJgkwt7+MSeX/SL
+					tn7Aulof4irWFVKaW5gDJbsy1qnsEweQ6Nc3QSRyrficpBWrIa8K8p7BwDwrMME6l8Vfl2zitSKG
+					R3DSaXwXj+e7wCF3fFavjQsEXH9Whqvkx9Uf2jxXPnyWfLzRzLGrRe0bE1+a/W+N9KvDxhC/Xxku
+					RVBZJIecMF4jYDBtczX97hUqejr6S+/5fTQ27Y92ntKiu9ju2gXTvdM3FwuTMQYmuPTtwlAVJ1Pt
+					KQ5aoCx3t3rDbZidNgBGs+0Q1PYH44TwFSTom44qOtxBHTxJeNBE9CIi3E9kN0UmSPJfQ3OoTgdM
+					hPLlRfgoht0CAwEAAaOCAhQwggIQMB0GA1UdDgQWBBT+k4nIAsH6VfBiHBSKEgXpNqFnMDAfBgNV
+					HSMEGDAWgBRr4cqAPqVrfOY1BRJmWH+a5kC7pTCCAcwGC2CGSAGG+DcBCQQBBIIBuzCCAbcEAgEA
+					AQH/Ex1Ob3ZlbGwgU2VjdXJpdHkgQXR0cmlidXRlKHRtKRZDaHR0cDovL2RldmVsb3Blci5ub3Zl
+					bGwuY29tL3JlcG9zaXRvcnkvYXR0cmlidXRlcy9jZXJ0YXR0cnNfdjEwLmh0bTCCAUigGgEBADAI
+					MAYCAQECAUYwCDAGAgEBAgEKAgFpoRoBAQAwCDAGAgEBAgEAMAgwBgIBAQIBAAIBAKIGAgEXAQH/
+					o4IBBKBYAgECAgIA/wIBAAMNAIAAAAAAAAAAAAAAAAMJAIAAAAAAAAAAMBgwEAIBAAIIf///////
+					//8BAQACBAbw30gwGDAQAgEAAgh//////////wEBAAIEBvDfSKFYAgECAgIA/wIBAAMNAEAAAAAA
+					AAAAAAAAAAMJAEAAAAAAAAAAMBgwEAIBAAIIf/////////8BAQACBBH/pv0wGDAQAgEAAgh/////
+					/////wEBAAIEEf+m/aJOMEwCAQICAQACAgD/Aw0AgAAAAAAAAAAAAAAAAwkAgAAAAAAAAAAwEjAQ
+					AgEAAgh//////////wEBADASMBACAQACCH//////////AQEAMA0GCSqGSIb3DQEBBQUAA4IBAQBy
+					IBtE1LTUAqFFECymAHZt1WnzggalDJz1IfoWzhLZPNMIXq5Y30wo7FrIXS+c+QU4EOtsgrJ8qrem
+					yeZ84vA0ZR+4DhUzX5JuSQcWXvC+tL2jiQ6f5CQmR4gaCHhlCE3bUu8neEf0gZbZHaZv8GdKYixy
+					qj/lMCLDYC+fZIUeqod6GY9lS58bN5jVqlIgW5HWv0EneIyWhD5ebiBK+SvjZJCJwoQgVYSqtsxQ
+					vYSjD0vT+OH4Y6cZvEgAeIofKZdQN3spz9D0dvlvvVufubqqTFsFJBPnFDJAckuEOXUU1gqbvpaZ
+					TA6oBeDsOrUVOCrH7SAaOSosxon4yJ8a6WL7
+				</ds:X509Certificate>
+			</ds:X509Data>
+		</ds:KeyInfo>
+	</ds:Signature>
+	<samlp:Status>
+		<samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Responder">
+			<samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:RequestDenied" />
+		</samlp:StatusCode>
+		<StatusMessage>Authorization is failed</StatusMessage>
+	</samlp:Status>
+</samlp:Response>

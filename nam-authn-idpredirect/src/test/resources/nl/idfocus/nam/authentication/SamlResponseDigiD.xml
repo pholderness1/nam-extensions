@@ -1,0 +1,41 @@
+<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+                xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+                Destination="https://clnonip1.inf.cak-bz.local/nidp/saml2/spassertion_consumer"
+                ID="_835eab7d-b54a-30a4-af64-d428f8cab2ab"
+                InResponseTo="idXLMq2Z0vt8ve9guHMElmSAXRNrg"
+                IssueInstant="2016-10-25T13:52:34.520Z"
+                Version="2.0"
+                >
+    <saml:Issuer>demo.connectis.org-broker-digid</saml:Issuer>
+    <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:SignedInfo>
+            <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+            <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+            <ds:Reference URI="#_835eab7d-b54a-30a4-af64-d428f8cab2ab">
+                <ds:Transforms>
+                    <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                    <ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#">
+                        <ec:InclusiveNamespaces xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"
+                                                PrefixList="ds saml samlp"
+                                                />
+                    </ds:Transform>
+                </ds:Transforms>
+                <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+                <ds:DigestValue>bj2wUCVgSnRnf85kqiJQ/pB+W0QG0Jgn5mwE+lu8hjA=</ds:DigestValue>
+            </ds:Reference>
+        </ds:SignedInfo>
+        <ds:SignatureValue>
+I6HqahUfLqKy4PyPqOGG7drVcsRqJWW+o7Y9K5aEenPX645D0vvOUMp6RAluyDtJri3ZBDA2hBz2
+/yICe72bQbo8cQTFg/M0NwpJEYDQZ2vrHEppL2HBS/clduiYGWyUTG8kaDvogp+Yrod0s7deVGtr
+SShM3ud9tWIsn8hoCKLY1BQTieZ9UkLW3zS6Iwa02Ly4MxsmXTHzcf00aK8MjUpVbBOBk14homWY
+Ywir87060qu8s5KrD1wto6kwVrxDrBNzhBxDrHljmCVKbWciAlvv0ll0VTkJ9kt62/X6bKdYiN+q
+W5jKmRn+kdqnMbzfzlWPnyGLSZP1UiyFFAD1qw==
+</ds:SignatureValue>
+    </ds:Signature>
+    <samlp:Status>
+        <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Responder">
+            <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:AuthnFailed" />
+        </samlp:StatusCode>
+        <samlp:StatusMessage>The user cancelled.</samlp:StatusMessage>
+    </samlp:Status>
+</samlp:Response>

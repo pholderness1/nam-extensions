@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ns0="urn:nl:eherkenning:1.3:metadataextensions" ID="_b17f02e9-6603-4c26-8d7f-a6ac4483bdea" entityID="demo.connectis.org-broker-digid" ns0:version="1.1"><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+<ds:SignedInfo>
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+<ds:Reference URI="#_b17f02e9-6603-4c26-8d7f-a6ac4483bdea">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+<ds:DigestValue>d5gOy0YOghrAgRgy+bb6trDCpN1i9IwAvnusTlyARcs=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue>
+PVC5HbqTXz1SEvxWsczy5Tv1KS30SDGepEcBuBfNqkiHbgPD6vpzHpUeaPaY4VWmvWwbmCtAQYoY
+rbX2gtonwTqtylXLOfmQVNJuNITY8aDusHZ/kChVLeaN07M5y4hDbNFLw16Noz5ojLYSnfYirPTg
+/GUw5UWoVYQ2BQMlGTlLqgRz1BXpDl2TiavBqPdfdjx1A9PphwaryRc4PFJQ2HMsMlHsv3wtYoiR
+UWNLrDtnNGVRsnVrgibwHgaqDnpMSiOCFc1YBmMo67zvCUDIqchxWoB34rD4bPNjQbj3qXxOfvHr
+5nUOt3y08b1ZM12VtdUQucA9D+YKU9WGHyzx0w==
+</ds:SignatureValue>
+<ds:KeyInfo>
+<ds:X509Data>
+<ds:X509Certificate>
+MIIFWzCCBEOgAwIBAgIRAK8DrAZL1OcJPNe7Rotuas4wDQYJKoZIhvcNAQELBQAwgZAxCzAJBgNV
+BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
+BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMTYwNAYDVQQDEy1DT01PRE8gUlNBIERvbWFpbiBWYWxp
+ZGF0aW9uIFNlY3VyZSBTZXJ2ZXIgQ0EwHhcNMTYwNzE5MDAwMDAwWhcNMTkwNzE5MjM1OTU5WjBW
+MSEwHwYDVQQLExhEb21haW4gQ29udHJvbCBWYWxpZGF0ZWQxFDASBgNVBAsTC1Bvc2l0aXZlU1NM
+MRswGQYDVQQDExJkZW1vLmNvbm5lY3Rpcy5vcmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+AoIBAQC2Iifn5RJiw62J1qzWOADNhelaqC0IIJ9sC8C0+DQArBzhGEsKv3bYylmFUvSci8XI8fp8
+vb8MVriORGR0SH2shX5/ruaV6chXW87l7KO/JvFydYHtZc2PU8JsWvrrHZxoo74N/KZb0qqP7tLV
+My4SNX1fxVGKtA+sS5P81YE8vwjgegnjbZHbDzQEzEopNkBFOAHn3csi6/QlXf5IKLjYgwRq3GYG
+wDuNVaHWLM1gMG8h0dPZEhHo7vUVT3O4yKNifeOgbYOEoxeSbyGKceAyD29tZ9lmjxXkpnAsCi44
+44rJ6bVcNBXRseZW/4fZu5hYbGRDQwNs4yQ8W7zBYJWNAgMBAAGjggHnMIIB4zAfBgNVHSMEGDAW
+gBSQr2o6lFoL2JDqElZz30O0Oija5zAdBgNVHQ4EFgQUVwXYBx2kZF339DCr4llk3x9pBCswDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMC
+ME8GA1UdIARIMEYwOgYLKwYBBAGyMQECAgcwKzApBggrBgEFBQcCARYdaHR0cHM6Ly9zZWN1cmUu
+Y29tb2RvLmNvbS9DUFMwCAYGZ4EMAQIBMFQGA1UdHwRNMEswSaBHoEWGQ2h0dHA6Ly9jcmwuY29t
+b2RvY2EuY29tL0NPTU9ET1JTQURvbWFpblZhbGlkYXRpb25TZWN1cmVTZXJ2ZXJDQS5jcmwwgYUG
+CCsGAQUFBwEBBHkwdzBPBggrBgEFBQcwAoZDaHR0cDovL2NydC5jb21vZG9jYS5jb20vQ09NT0RP
+UlNBRG9tYWluVmFsaWRhdGlvblNlY3VyZVNlcnZlckNBLmNydDAkBggrBgEFBQcwAYYYaHR0cDov
+L29jc3AuY29tb2RvY2EuY29tMDUGA1UdEQQuMCyCEmRlbW8uY29ubmVjdGlzLm9yZ4IWd3d3LmRl
+bW8uY29ubmVjdGlzLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAV487RhyZ71CQEMt01xQcIx4AOGO4
+m/wxoqYJCDBK7TTiR3etKw7C0fAWoTZazCWwO+U5sQ72iIaa1bnu+bdm31EDSFCHmGWUvHVHUqCI
+xmgPDRlQoMEZmUn2a+ywajfX+y7Ev96erTQfktU4Xm9pWn+hnYgsmyAN5OkQfIIeaiD1qLQUO/5V
+snRKGp+YI7qi04kfthv/gNSPsEVnyx38U2qAJPRH7HPD6IgchugmfBqT4v0hBZO5R1ayvcn4/dyl
+13KgDgZJZBgjDXevuXdWluApnOBMcWggEJPFvcisD54lH48RxO6y6qYujCeR35/XOsajXBZJfOrQ
+7EH68vXoaw==
+</ds:X509Certificate>
+</ds:X509Data>
+</ds:KeyInfo>
+</ds:Signature>
+  <md:Extensions>
+    <attr:EntityAttributes xmlns:attr="urn:oasis:names:tc:SAML:metadata:attribute">
+      <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="urn:oasis:names:tc:SAML:attribute:assurance-certification" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+        <saml:AttributeValue>urn:oasis:names:tc:SAML:2.0:ac:classes:MobileTwoFactorContract</saml:AttributeValue>
+      </saml:Attribute>
+    </attr:EntityAttributes>
+  </md:Extensions>
+  <md:IDPSSODescriptor WantAuthnRequestsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:KeyName>B391A308A94C13E507CDB1CA196091F8BA2EB753</ds:KeyName>
+        <ds:X509Data>
+          <ds:X509Certificate>MIIFWzCCBEOgAwIBAgIRAK8DrAZL1OcJPNe7Rotuas4wDQYJKoZIhvcNAQELBQAwgZAxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAYBgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMTYwNAYDVQQDEy1DT01PRE8gUlNBIERvbWFpbiBWYWxpZGF0aW9uIFNlY3VyZSBTZXJ2ZXIgQ0EwHhcNMTYwNzE5MDAwMDAwWhcNMTkwNzE5MjM1OTU5WjBWMSEwHwYDVQQLExhEb21haW4gQ29udHJvbCBWYWxpZGF0ZWQxFDASBgNVBAsTC1Bvc2l0aXZlU1NMMRswGQYDVQQDExJkZW1vLmNvbm5lY3Rpcy5vcmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC2Iifn5RJiw62J1qzWOADNhelaqC0IIJ9sC8C0+DQArBzhGEsKv3bYylmFUvSci8XI8fp8vb8MVriORGR0SH2shX5/ruaV6chXW87l7KO/JvFydYHtZc2PU8JsWvrrHZxoo74N/KZb0qqP7tLVMy4SNX1fxVGKtA+sS5P81YE8vwjgegnjbZHbDzQEzEopNkBFOAHn3csi6/QlXf5IKLjYgwRq3GYGwDuNVaHWLM1gMG8h0dPZEhHo7vUVT3O4yKNifeOgbYOEoxeSbyGKceAyD29tZ9lmjxXkpnAsCi4444rJ6bVcNBXRseZW/4fZu5hYbGRDQwNs4yQ8W7zBYJWNAgMBAAGjggHnMIIB4zAfBgNVHSMEGDAWgBSQr2o6lFoL2JDqElZz30O0Oija5zAdBgNVHQ4EFgQUVwXYBx2kZF339DCr4llk3x9pBCswDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCME8GA1UdIARIMEYwOgYLKwYBBAGyMQECAgcwKzApBggrBgEFBQcCARYdaHR0cHM6Ly9zZWN1cmUuY29tb2RvLmNvbS9DUFMwCAYGZ4EMAQIBMFQGA1UdHwRNMEswSaBHoEWGQ2h0dHA6Ly9jcmwuY29tb2RvY2EuY29tL0NPTU9ET1JTQURvbWFpblZhbGlkYXRpb25TZWN1cmVTZXJ2ZXJDQS5jcmwwgYUGCCsGAQUFBwEBBHkwdzBPBggrBgEFBQcwAoZDaHR0cDovL2NydC5jb21vZG9jYS5jb20vQ09NT0RPUlNBRG9tYWluVmFsaWRhdGlvblNlY3VyZVNlcnZlckNBLmNydDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuY29tb2RvY2EuY29tMDUGA1UdEQQuMCyCEmRlbW8uY29ubmVjdGlzLm9yZ4IWd3d3LmRlbW8uY29ubmVjdGlzLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAV487RhyZ71CQEMt01xQcIx4AOGO4m/wxoqYJCDBK7TTiR3etKw7C0fAWoTZazCWwO+U5sQ72iIaa1bnu+bdm31EDSFCHmGWUvHVHUqCIxmgPDRlQoMEZmUn2a+ywajfX+y7Ev96erTQfktU4Xm9pWn+hnYgsmyAN5OkQfIIeaiD1qLQUO/5VsnRKGp+YI7qi04kfthv/gNSPsEVnyx38U2qAJPRH7HPD6IgchugmfBqT4v0hBZO5R1ayvcn4/dyl13KgDgZJZBgjDXevuXdWluApnOBMcWggEJPFvcisD54lH48RxO6y6qYujCeR35/XOsajXBZJfOrQ7EH68vXoaw==</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://demo.connectis.org/broker/ars/digid" index="0"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://demo.connectis.org/broker/slo/digid"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://demo.connectis.org/broker/slo/digid"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://demo.connectis.org/broker/slo/digid"/>
+    <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://demo.connectis.org/broker/sso/digid"/>
+  </md:IDPSSODescriptor>
+  <md:SPSSODescriptor AuthnRequestsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:KeyName>B391A308A94C13E507CDB1CA196091F8BA2EB753</ds:KeyName>
+        <ds:X509Data>
+          <ds:X509Certificate>MIIFWzCCBEOgAwIBAgIRAK8DrAZL1OcJPNe7Rotuas4wDQYJKoZIhvcNAQELBQAwgZAxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAYBgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMTYwNAYDVQQDEy1DT01PRE8gUlNBIERvbWFpbiBWYWxpZGF0aW9uIFNlY3VyZSBTZXJ2ZXIgQ0EwHhcNMTYwNzE5MDAwMDAwWhcNMTkwNzE5MjM1OTU5WjBWMSEwHwYDVQQLExhEb21haW4gQ29udHJvbCBWYWxpZGF0ZWQxFDASBgNVBAsTC1Bvc2l0aXZlU1NMMRswGQYDVQQDExJkZW1vLmNvbm5lY3Rpcy5vcmcwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC2Iifn5RJiw62J1qzWOADNhelaqC0IIJ9sC8C0+DQArBzhGEsKv3bYylmFUvSci8XI8fp8vb8MVriORGR0SH2shX5/ruaV6chXW87l7KO/JvFydYHtZc2PU8JsWvrrHZxoo74N/KZb0qqP7tLVMy4SNX1fxVGKtA+sS5P81YE8vwjgegnjbZHbDzQEzEopNkBFOAHn3csi6/QlXf5IKLjYgwRq3GYGwDuNVaHWLM1gMG8h0dPZEhHo7vUVT3O4yKNifeOgbYOEoxeSbyGKceAyD29tZ9lmjxXkpnAsCi4444rJ6bVcNBXRseZW/4fZu5hYbGRDQwNs4yQ8W7zBYJWNAgMBAAGjggHnMIIB4zAfBgNVHSMEGDAWgBSQr2o6lFoL2JDqElZz30O0Oija5zAdBgNVHQ4EFgQUVwXYBx2kZF339DCr4llk3x9pBCswDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCME8GA1UdIARIMEYwOgYLKwYBBAGyMQECAgcwKzApBggrBgEFBQcCARYdaHR0cHM6Ly9zZWN1cmUuY29tb2RvLmNvbS9DUFMwCAYGZ4EMAQIBMFQGA1UdHwRNMEswSaBHoEWGQ2h0dHA6Ly9jcmwuY29tb2RvY2EuY29tL0NPTU9ET1JTQURvbWFpblZhbGlkYXRpb25TZWN1cmVTZXJ2ZXJDQS5jcmwwgYUGCCsGAQUFBwEBBHkwdzBPBggrBgEFBQcwAoZDaHR0cDovL2NydC5jb21vZG9jYS5jb20vQ09NT0RPUlNBRG9tYWluVmFsaWRhdGlvblNlY3VyZVNlcnZlckNBLmNydDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuY29tb2RvY2EuY29tMDUGA1UdEQQuMCyCEmRlbW8uY29ubmVjdGlzLm9yZ4IWd3d3LmRlbW8uY29ubmVjdGlzLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAV487RhyZ71CQEMt01xQcIx4AOGO4m/wxoqYJCDBK7TTiR3etKw7C0fAWoTZazCWwO+U5sQ72iIaa1bnu+bdm31EDSFCHmGWUvHVHUqCIxmgPDRlQoMEZmUn2a+ywajfX+y7Ev96erTQfktU4Xm9pWn+hnYgsmyAN5OkQfIIeaiD1qLQUO/5VsnRKGp+YI7qi04kfthv/gNSPsEVnyx38U2qAJPRH7HPD6IgchugmfBqT4v0hBZO5R1ayvcn4/dyl13KgDgZJZBgjDXevuXdWluApnOBMcWggEJPFvcisD54lH48RxO6y6qYujCeR35/XOsajXBZJfOrQ7EH68vXoaw==</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://demo.connectis.org/broker/ars/digid" index="0"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://demo.connectis.org/broker/acs/digid" index="1" isDefault="true"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://demo.connectis.org/broker/slo/digid"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://demo.connectis.org/broker/slo/digid"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://demo.connectis.org/broker/slo/digid"/>
+  </md:SPSSODescriptor>
+  <md:Organization>
+    <md:OrganizationName xml:lang="en">Connectis</md:OrganizationName>
+    <md:OrganizationDisplayName xml:lang="en">Connectis Demo Broker Digid</md:OrganizationDisplayName>
+    <md:OrganizationURL xml:lang="en">www.connectis.nl</md:OrganizationURL>
+  </md:Organization>
+  <md:ContactPerson contactType="administrative">
+    <md:EmailAddress>technicalsupport@connectis.nl</md:EmailAddress>
+    <md:TelephoneNumber>0880120222</md:TelephoneNumber>
+  </md:ContactPerson>
+</md:EntityDescriptor>

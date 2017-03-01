@@ -14,6 +14,8 @@
 		<module>nam-authn-totp</module>
 		<module>nam-authn-smstoken</module>
 		<module>nam-authn-totporsmstoken</module>
+		<module>nam-authz-wstrust</module>
+		<module>nam-authn-allowdeny</module>
 	</modules>
 	<build>
 		<resources>

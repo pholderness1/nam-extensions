@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ns0="urn:nl:eherkenning:1.3:metadataextensions" ID="_3fe6fb7b-d387-4f0f-b11d-e5f59749defe" entityID="eidgwtest.hetcak.nl-broker" ns0:version="1.1" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+<ds:SignedInfo>
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+<ds:Reference URI="#_3fe6fb7b-d387-4f0f-b11d-e5f59749defe">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+<ds:DigestValue>PdRdluq7AFnRBl3QadKNh2AO8NsFGliER72RsH2gAxc=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue>
+rUk+xbTKFT5GxeF3JJYDGZmCkUqFtaGryj9DKXPepQsrmH5l4MLocGq29CpXJKGYPZ/+87ZibW1i
+XlK2JKJZmIL9gIVpAbroXTI5ghisPLHcKiwd2ZTo4uJ2/z+CpqUX7xvWOeJkY1Js6hgemSxZIWq+
+kqFW6bvljGlqxdOJ+LMzquI3M52tOeqpnCjEGyHhwKAcE5mqv4hoj4Oq/CIusTOfDKZhmFw3LNMi
+ene8a7EEqzmNDI2HNKFNcX+j0mM71p0NVDVYBmmW70DdsunoICJ2KPQsq8yMR0oXGCrE8az3Dqxi
+WKK5G2g2bWC8xiNYKFadbwILRAUmvUAmwS7V1Q==
+</ds:SignatureValue>
+<ds:KeyInfo>
+<ds:X509Data>
+<ds:X509Certificate>
+MIIGejCCBGKgAwIBAgIISB5b9scMJmwwDQYJKoZIhvcNAQELBQAwTjELMAkGA1UEBhMCTkwxETAP
+BgNVBAoMCEtQTiBCLlYuMSwwKgYDVQQDDCNLUE4gUEtJb3ZlcmhlaWQgT3JnYW5pc2F0aWUgQ0Eg
+LSBHMjAeFw0xNjA5MzAwOTEwMTNaFw0xOTA5MzAwOTEwMTNaMGMxCzAJBgNVBAYTAk5MMRUwEwYD
+VQQIDAxadWlkLUhvbGxhbmQxETAPBgNVBAcMCERlbiBIYWFnMQwwCgYDVQQKDANDQUsxHDAaBgNV
+BAMME2VpZGd3dGVzdC5oZXRjYWsubmwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDF
+NQcdqPK16sbDDYYG7UkMR4h3PSqewMK6KlWkHYTlHF8JDX8a5nEzftcAUoIGBq91BPrB1dHzHbXF
+W3QCkX7EeajAj/fr/EHwDfCqkM5fIG2h7U29XC7a+s1xOzYaca62D6Z3CSwYxHsZFdVmQwVX30hN
+7tGkvligmUyAEzAZn/Wi0FKlqecrH1kdEv0Ved9Oza/ScpM7TT7H1Z9tyYSKIjh+av9RP+TB3oP5
+fK2dPwsnZSs50WkusJGPxv++0jf6OBs0/Bdfj2sID2JroS5hr6ckofFsWTbtCBT+re6dE0Wo+p2Q
+LOnKil8XPvSuTdTHpIrMXWjl2+y8evV1B7r7AgMBAAGjggJFMIICQTCBiwYIKwYBBQUHAQEEfzB9
+MFEGCCsGAQUFBzAChkVodHRwczovL2NlcnQubWFuYWdlZHBraS5jb20vQ0FjZXJ0cy9LUE5QS0lv
+dmVyaGVpZE9yZ2FuaXNhdGllQ0FHMi5jZXIwKAYIKwYBBQUHMAGGHGh0dHA6Ly9nMm9jc3AubWFu
+YWdlZHBraS5jb20wHQYDVR0OBBYEFNsJZXeT9fWJ5seSXANu3NiIdtbqMAwGA1UdEwEB/wQCMAAw
+HwYDVR0jBBgwFoAUdaNOjx6X3WyIATHvciHCbmCUfYAwgbEGA1UdIASBqTCBpjCBmQYKYIQQAYdr
+AQIFBjCBijA3BggrBgEFBQcCARYraHR0cHM6Ly9jZXJ0aWZpY2FhdC5rcG4uY29tL3BraW92ZXJo
+ZWlkL2NwczBPBggrBgEFBQcCAjBDDEFPcCBkaXQgY2VydGlmaWNhYXQgaXMgaGV0IENQUyBQS0lv
+dmVyaGVpZCB2YW4gS1BOIHZhbiB0b2VwYXNzaW5nLjAIBgZngQwBAgIwVgYDVR0fBE8wTTBLoEmg
+R4ZFaHR0cDovL2NybC5tYW5hZ2VkcGtpLmNvbS9LUE5QS0lvdmVyaGVpZE9yZ2FuaXNhdGllQ0FH
+Mi9MYXRlc3RDUkwuY3JsMA4GA1UdDwEB/wQEAwIFoDAnBgNVHSUEIDAeBggrBgEFBQcDAQYIKwYB
+BQUHAwIGCCsGAQUFBwMEMB4GA1UdEQQXMBWCE2VpZGd3dGVzdC5oZXRjYWsubmwwDQYJKoZIhvcN
+AQELBQADggIBADJBV4OhSQmm+90NxcN89urygoUlze9qUDCmZ/t+ocePVPIvgS8t9hehynKyI5Ik
+BD70oKzHFHMDlCENMqrym9ntP+4jM/LLJfQx3d4c3Pk5ERPPyYGoiQMWELYOSnsLCodq9pVw8vfQ
++DeppUG2WkGkVJNWoVMiOmb84ML34rhI69ZLGv59eAhk2roY9TeJq0KcBtUr/OB6fyrVAzxsg9Le
+yLtBrp3hG6hy5eUFK9OXrmPimNzRiTMG8EuOaoafOgYpYrb7m21MyvzOCDgiTW4BI/2kdhf1rU0r
+XqJSdj+PK/7MHMDyP98E6oyKGO5QvYmX+sN3BKArg6WoRtvo3akn0LOJ3nLZqdSItkaG55hBm6+v
+R3C7+Nkn6UBJiG01HX5fmOiC5bf1suZHONjGd35njW8zDAZ+bqzFM+PouSXjfCm+m5dsYwk8ZjzJ
+W0jI92kdqVfGSVAhLC7fJayPZnrasTYGs2WctgO4zL+C2C0rP3TG3EwEGHBTbM5Eo68D1gqFcaKE
+S09IJSiZa9vNY7tfn17wHwDZwCq+RXVm14cnYdQn/BV5QbL4KFtjhdclegpXoj/GzNLzSoN/X9dE
+KtNGxrmFGB3LcheA0UZ0sptat090vSwkLkmouJ6+03m5V+x9s4llqPr8D2GREwCSAMNcATCOCrsH
+tK46mc9C60BK
+</ds:X509Certificate>
+</ds:X509Data>
+</ds:KeyInfo>
+</ds:Signature>
+  <md:Extensions>
+    <attr:EntityAttributes xmlns:attr="urn:oasis:names:tc:SAML:metadata:attribute">
+      <saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Name="urn:oasis:names:tc:SAML:attribute:assurance-certification" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
+        <saml:AttributeValue>urn:oasis:names:tc:SAML:2.0:ac:classes:MobileTwoFactorContract</saml:AttributeValue>
+      </saml:Attribute>
+    </attr:EntityAttributes>
+  </md:Extensions>
+  <md:IDPSSODescriptor WantAuthnRequestsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:KeyName>62074726F336CEF6C4A9A74B47563B3992F59344</ds:KeyName>
+        <ds:X509Data>
+          <ds:X509Certificate>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</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://eidgwtest.hetcak.nl/broker/ars" index="0"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://eidgwtest.hetcak.nl/broker/slo"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://eidgwtest.hetcak.nl/broker/slo"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://eidgwtest.hetcak.nl/broker/slo"/>
+    <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://eidgwtest.hetcak.nl/broker/sso"/>
+  </md:IDPSSODescriptor>
+  <md:SPSSODescriptor AuthnRequestsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <md:KeyDescriptor use="signing">
+      <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:KeyName>62074726F336CEF6C4A9A74B47563B3992F59344</ds:KeyName>
+        <ds:X509Data>
+          <ds:X509Certificate>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</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </md:KeyDescriptor>
+    <md:ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://eidgwtest.hetcak.nl/broker/ars" index="0"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://eidgwtest.hetcak.nl/broker/slo"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://eidgwtest.hetcak.nl/broker/slo"/>
+    <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://eidgwtest.hetcak.nl/broker/slo"/>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://eidgwtest.hetcak.nl/broker/acs" index="1" isDefault="true"/>
+  </md:SPSSODescriptor>
+  <md:Organization>
+    <md:OrganizationName xml:lang="en">Connectis</md:OrganizationName>
+    <md:OrganizationDisplayName xml:lang="en">CAK Broker Staging</md:OrganizationDisplayName>
+    <md:OrganizationURL xml:lang="en">www.connectis.nl</md:OrganizationURL>
+  </md:Organization>
+  <md:ContactPerson contactType="administrative">
+    <md:EmailAddress>technicalsupport@connectis.nl</md:EmailAddress>
+    <md:TelephoneNumber>0880120222</md:TelephoneNumber>
+  </md:ContactPerson>
+</md:EntityDescriptor>
