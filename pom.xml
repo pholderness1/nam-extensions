@@ -6,7 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>NetIQ Access Manager Extensions from IDFocus</name>
-	<description>Authentication modules, policy extensions and more</description>
+	<description>Authentication modules, policy extensions, filters and more</description>
 	<modules>
 		<module>nam-util</module>
 		<module>nam-authn-password-expiration</module>
@@ -40,9 +40,36 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>external.atlassian.jgitflow</groupId>
+				<artifactId>jgitflow-maven-plugin</artifactId>
+				<version>${jgitflow.version}</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<properties>
 		<java.version>1.8</java.version>
+		<jgitflow.version>1.0-m5.1</jgitflow.version>
 	</properties>
+	<scm>
+		<connection>scm:git:https://github.com/IDFocus/nam-extensions.git</connection>
+		<developerConnection>scm:git:https://github.com/IDFocus/nam-extensions.git</developerConnection>
+	</scm>
+	<distributionManagement>
+		<repository>
+			<id>nl.idfocus.maven.release</id>
+			<name>Nexus Releases</name>
+			<url>http://repository.idfocus.nl/repository/maven-releases</url>
+			<uniqueVersion>false</uniqueVersion>
+		</repository>
+		<snapshotRepository>
+			<id>nl.idfocus.maven.snapshot</id>
+			<name>Nexus Snapshots</name>
+			<url>http://repository.idfocus.nl/repository/maven-snapshots/</url>
+			<uniqueVersion>true</uniqueVersion>
+		</snapshotRepository>
+	</distributionManagement>
 </project>

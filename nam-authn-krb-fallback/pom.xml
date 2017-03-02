@@ -10,6 +10,11 @@
 	<name>NAM: Kerberos Force Fallback Authentication Module</name>
 	<dependencies>
 		<dependency>
+			<groupId>nl.idfocus.nam</groupId>
+			<artifactId>nam-util</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>com.novell.nam</groupId>
 			<artifactId>nidp</artifactId>
 			<version>${nam.version}</version>
