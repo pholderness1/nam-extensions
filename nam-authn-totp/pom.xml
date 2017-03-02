@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>nl.idfocus.nam</groupId>
 		<artifactId>nam-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 	<artifactId>nam-authn-totp</artifactId>
 	<name>NAM: TOTP Authentication Module</name>
