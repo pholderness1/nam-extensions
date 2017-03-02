@@ -20,6 +20,7 @@
 		<module>nam-authn-krb-fallback</module>
 		<module>nam-authn-x509</module>
 		<module>nam-playground</module>
+		<module>nam-filter-csp</module>
 	</modules>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
