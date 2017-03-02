@@ -35,7 +35,7 @@
 			<groupId>com.novell.nam</groupId>
 			<artifactId>common</artifactId>
 			<version>${nam.version}</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<!-- Runtime dependency (available on idp), but needed for tests -->
@@ -88,7 +88,7 @@
 		</dependency>
 	</dependencies>
 	<properties>
-		<nam.version>4.2.1</nam.version>
+		<nam.version>4.2.2</nam.version>
 		<servlet.version>3.0.1</servlet.version>
 		<junit.version>4.11</junit.version>
 		<mockito.version>1.10.19</mockito.version>

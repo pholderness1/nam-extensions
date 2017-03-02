@@ -14,13 +14,6 @@
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>nl.idfocus.nam</groupId>
-			<artifactId>nam-util</artifactId>
-			<version>${project.parent.version}</version>
-			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.novell.nam</groupId>
 			<artifactId>nidp</artifactId>
 			<version>${nam.version}</version>
@@ -58,6 +51,13 @@
 		</dependency>
 		<!-- Test dependencies -->
 		<dependency>
+			<groupId>nl.idfocus.nam</groupId>
+			<artifactId>nam-util</artifactId>
+			<version>${project.parent.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>bouncycastle</groupId>
 			<artifactId>bcprov-jdk16</artifactId>
 			<version>140</version>
@@ -74,12 +74,6 @@
 			<!-- Runtime dependency (available on idp), but needed for tests -->
 			<groupId>com.novell</groupId>
 			<artifactId>jcc</artifactId>
-			<version>${nam.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.novell.nam</groupId>
-			<artifactId>common</artifactId>
 			<version>${nam.version}</version>
 			<scope>test</scope>
 		</dependency>
