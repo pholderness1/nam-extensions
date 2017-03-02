@@ -14,6 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -947,11 +949,12 @@ public class CorsFilter implements Filter
 		{
 			return true;
 		}
+		// TODO this should probably be prepared during the init() phase for scalability
 		for (String allowedOrigin : allowedOrigins )
 		{
 			if (allowedOrigin.contains("*") && allowedOrigin.indexOf('*') == allowedOrigin.lastIndexOf('*'))
 			{
-				String comparison = allowedOrigin.replace("*", ".*");
+				String comparison = createWildcardMatch(allowedOrigin);
 				if (origin.matches(comparison))
 					return true;
 			}
@@ -959,6 +962,23 @@ public class CorsFilter implements Filter
 		// If 'Origin' header is a case-sensitive match of any of allowed
 		// origins, then return true, else return false.
 		return allowedOrigins.contains(origin);
+	}
+
+	/*
+	 * From http://stackoverflow.com/questions/24337657/wildcard-matching-in-java 
+	 */
+	private String createWildcardMatch(String input)
+	{
+		Pattern regex = Pattern.compile("[^*]+|(\\*)");
+		Matcher m = regex.matcher(input);
+		StringBuffer b= new StringBuffer();
+		while (m.find()) {
+		    if(m.group(1) != null) 
+		    	m.appendReplacement(b, ".*");
+		    else m.appendReplacement(b, Pattern.quote(m.group(0)));
+		}
+		m.appendTail(b);
+		return b.toString();		
 	}
 
 	/**
