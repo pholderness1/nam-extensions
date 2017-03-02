@@ -9,7 +9,7 @@
 	<name>NAM: Playground Modules for Education</name>
 	<dependencies>
 		<dependency>
-			<groupId>com.novell.nam</groupId>
+			<groupId>com.netiq.nam</groupId>
 			<artifactId>nidp</artifactId>
 			<version>${nam.version}</version>
 			<scope>provided</scope>
@@ -47,19 +47,19 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.novell</groupId>
+			<groupId>com.netiq.nam</groupId>
 			<artifactId>jcc</artifactId>
 			<version>${nam.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.novell.nam</groupId>
+			<groupId>com.netiq.nam</groupId>
 			<artifactId>common</artifactId>
 			<version>${nam.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.novell.nam</groupId>
+			<groupId>com.netiq.nam</groupId>
 			<artifactId>nxpe</artifactId>
 			<version>${nam.version}</version>
 			<scope>test</scope>

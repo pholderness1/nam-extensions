@@ -24,22 +24,22 @@
 		</plugins>
 	</build>
 	<dependencies>
-		<!-- Test dependencies -->
 		<dependency>
-			<groupId>com.novell.nam</groupId>
+			<groupId>com.netiq.nam</groupId>
 			<artifactId>nidp</artifactId>
 			<version>${nam.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.novell.nam</groupId>
+			<groupId>com.netiq.nam</groupId>
 			<artifactId>common</artifactId>
 			<version>${nam.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Test dependencies -->
 		<dependency>
 			<!-- Runtime dependency (available on idp), but needed for tests -->
-			<groupId>com.novell</groupId>
+			<groupId>com.netiq.nam</groupId>
 			<artifactId>jcc</artifactId>
 			<version>${nam.version}</version>
 			<scope>test</scope>

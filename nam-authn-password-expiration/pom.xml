@@ -13,21 +13,21 @@
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.novell.nam</groupId>
+			<groupId>com.netiq.nam</groupId>
 			<artifactId>nidp</artifactId>
 			<version>${nam.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.novell.nam</groupId>
+			<groupId>com.netiq.nam</groupId>
 			<artifactId>common</artifactId>
 			<version>${nam.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.novell.nmas</groupId>
-			<artifactId>nmastoolkit</artifactId>
-			<version>2009.11.11</version>
+			<groupId>com.netiq.security</groupId>
+			<artifactId>nmas-toolkit</artifactId>
+			<version>2013.04.09</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -38,7 +38,7 @@
 		</dependency>
 	</dependencies>
 	<properties>
-		<nam.version>4.2.1</nam.version>
+		<nam.version>4.2.2</nam.version>
 		<servlet.version>3.0.1</servlet.version>
 	</properties>
 	<name>NAM: Password Expiration Check</name>
