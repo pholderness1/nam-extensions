@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 /**
- * Our logformatter class takes care of single-line logging, as opposed to the default double-line logging which is the default for the IDP. <br/>
+ * Our logformatter class takes care of single-line logging, as opposed to the default double-line logging which is the default for the IDP. <br>
  * The static {@link #getConsoleLogger(String)} method returns a console logger for IDP logging. 
  * @author mvreijn
  *
@@ -54,7 +54,7 @@ public final class LogFormatter extends SimpleFormatter
     /**
      * Create a logger with a console handler and single-line log formatting for the given classname. 
      * @param clazz the classname as derived from {@code class.getName()}
-     * @return a {@link #java.util.logging.Logger Logger} object
+     * @return a java.util.logging.Logger object
      */
     public static Logger getConsoleLogger( String clazz )
     {
@@ -70,7 +70,7 @@ public final class LogFormatter extends SimpleFormatter
 
     /**
      * Set the given logger and its handlers to log at level {@link java.util.logging.Level#ALL}, i.e. log everything.
-     * @param logger
+     * @param logger the logger to alter
      */
     public static void setLoggerDebugMode( Logger logger )
     {
