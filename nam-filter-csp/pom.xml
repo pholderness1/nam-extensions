@@ -10,14 +10,21 @@
 	<dependencies>
 		<!-- Regular dependencies -->
 		<dependency>
-			<groupId>nl.idfocus.nam</groupId>
-			<artifactId>nam-util</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${lang.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${io.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -32,26 +39,7 @@
 			<version>${slf4j.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>${lang.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${io.version}</version>
-			<scope>provided</scope>
-		</dependency>		
 		<!-- Test dependencies -->
-		<dependency>
-			<groupId>nl.idfocus.nam</groupId>
-			<artifactId>nam-util</artifactId>
-			<version>${project.parent.version}</version>
-			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -81,6 +69,18 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.0</version>
+			 	<configuration>
+			  		<archive>
+			   			<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+			      		</manifest>
+			  		</archive>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -117,9 +117,8 @@
 		<mvn.javadoc.version>2.10.4</mvn.javadoc.version>
 		<mvn.compiler.version>3.6.1</mvn.compiler.version>
 		<file.encoding>UTF-8</file.encoding>
-		<nam.version>4.3.0</nam.version>
-		<servlet.version>3.0.1</servlet.version>
 		<slf4j.version>1.7.12</slf4j.version>
+		<servlet.version>3.0.1</servlet.version>
 		<lang.version>2.3</lang.version>
 		<io.version>1.3.2</io.version>
 		<mockito.version>2.3.4</mockito.version>
@@ -156,4 +155,5 @@
 			</properties>
 		</profile>
 	</profiles>
+	<description>Adds Content Security Policy 2.0 support to NIDP responses.</description>
 </project>
