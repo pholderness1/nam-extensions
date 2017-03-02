@@ -23,4 +23,5 @@ In this project you will find a set of authentication classes for NetIQ Access M
 * **WS-Trust IDP Roles**: authorization module that can utilize IDP roles for WS-Trust authorizations
 * **Certificate Path Checker**: module for the X509 class that performs specific certificate chain verification
 * **Playground**: stuff to learn from with lots of explanation (hopefully)
-* **Content Security Policy**: class that adds Content Security Policy Header to the IDP response.
+* **Content Security Policy**: filter that adds Content Security Policy Header to the IDP response.
+* **CORS Filter**: filter that adds wildcard support to the default tomcat CORS filter.

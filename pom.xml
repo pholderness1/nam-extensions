@@ -21,6 +21,7 @@
 		<module>nam-authn-x509</module>
 		<module>nam-playground</module>
 		<module>nam-filter-csp</module>
+		<module>nam-filter-cors</module>
 	</modules>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
