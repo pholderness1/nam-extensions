@@ -35,7 +35,7 @@
 			<groupId>com.novell.nam</groupId>
 			<artifactId>common</artifactId>
 			<version>${nam.version}</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<!-- Runtime dependency (available on idp), but needed for tests -->
