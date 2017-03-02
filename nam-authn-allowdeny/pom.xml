@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>nl.idfocus.nam</groupId>
 		<artifactId>nam-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</parent>
 	<artifactId>nam-authn-allowdeny</artifactId>
 	<name>NAM: Always Allow or Deny Authentication Modules</name>
@@ -50,12 +49,6 @@
 			<!-- Runtime dependency (available on idp), but needed for tests -->
 			<groupId>com.novell</groupId>
 			<artifactId>jcc</artifactId>
-			<version>${nam.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.novell.nam</groupId>
-			<artifactId>common</artifactId>
 			<version>${nam.version}</version>
 			<scope>test</scope>
 		</dependency>
