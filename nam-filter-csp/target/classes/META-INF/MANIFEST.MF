@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: NAM: Content Security Policy Filter Module
-Implementation-Version: 1.0.1-SNAPSHOT
-Built-By: sveldhuisen
-Implementation-Vendor-Id: nl.idfocus.nam
-Build-Jdk: 1.8.0_40-ea
-Created-By: Maven Integration for Eclipse
-
