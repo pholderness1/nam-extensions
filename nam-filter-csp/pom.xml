@@ -1,30 +1,59 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>nl.idfocus.nam</groupId>
-	<artifactId>nam-parent</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>NetIQ Access Manager Extensions from IDFocus</name>
-	<description>Authentication modules, policy extensions, filters and more</description>
-	<modules>
-		<module>nam-util</module>
-		<module>nam-authn-password-expiration</module>
-		<module>nam-authz-wstrust</module>
-		<module>nam-authn-allowdeny</module>
-		<module>nam-authn-totp</module>
-		<module>nam-authn-smstoken</module>
-		<module>nam-authn-totporsmstoken</module>
-		<module>nam-authn-idpredirect</module>
-		<module>nam-authn-contract-dependency</module>
-		<module>nam-authn-chain</module>
-		<module>nam-authn-krb-fallback</module>
-		<module>nam-authn-x509</module>
-		<module>nam-playground</module>
-		<module>nam-filter-csp</module>
-		<module>nam-filter-cors</module>
-	</modules>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>nl.idfocus.nam</groupId>
+    <artifactId>nam-parent</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>nam-filter-csp</artifactId>
+  <name>NAM: Content Security Policy Filter Module</name>
+	<dependencies>
+		<!-- Regular dependencies -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${lang.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${io.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Test dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 	<build>
-		<sourceDirectory>src/main/java</sourceDirectory>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -40,6 +69,18 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.0.0</version>
+			 	<configuration>
+			  		<archive>
+			   			<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+			      		</manifest>
+			  		</archive>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -69,10 +110,20 @@
 		</plugins>
 	</build>
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<jgitflow.version>1.0-m5.1</jgitflow.version>
 		<mvn.javadoc.version>2.10.4</mvn.javadoc.version>
 		<mvn.compiler.version>3.6.1</mvn.compiler.version>
+		<file.encoding>UTF-8</file.encoding>
+		<slf4j.version>1.7.12</slf4j.version>
+		<servlet.version>3.0.1</servlet.version>
+		<lang.version>2.3</lang.version>
+		<io.version>1.3.2</io.version>
+		<mockito.version>2.3.4</mockito.version>
+		<wiremock.version>1.58</wiremock.version>
+		<junit.version>4.11</junit.version>
 	</properties>
 	<scm>
 		<connection>scm:git:https://github.com/IDFocus/nam-extensions.git</connection>
@@ -104,4 +155,5 @@
 			</properties>
 		</profile>
 	</profiles>
+	<description>Adds Content Security Policy 2.0 support to NIDP responses.</description>
 </project>

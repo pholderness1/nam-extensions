@@ -21,7 +21,10 @@ public class ExistingPrincipalResolver
 
 	/**
 	 * Resolve the current NIDP principal object by any known means.
-	 *
+	 * 
+	 * @param authenticationClass
+	 * @param properties
+	 * @param session
 	 * @return principal object for the current user
 	 */
 	public static NIDPPrincipal resolveUserPrincipal(LocalAuthenticationClass authenticationClass,
