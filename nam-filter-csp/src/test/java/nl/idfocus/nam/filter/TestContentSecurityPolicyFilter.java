@@ -52,8 +52,6 @@ public class TestContentSecurityPolicyFilter
     @Before
     public void setUp() 
     {
-
-    	
         contentSecurityPolicyFilter = new ContentSecurityPolicyFilter();
         response = mock(HttpServletResponse.class);
         request = mock(ServletRequest.class);

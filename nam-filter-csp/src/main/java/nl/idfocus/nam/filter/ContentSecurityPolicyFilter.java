@@ -1,7 +1,6 @@
 package nl.idfocus.nam.filter;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,14 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 
-import nl.idfocus.nam.util.LogFormatter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Servlet Filter implementation class ContentSecurityPolicyFilter
  */
 public class ContentSecurityPolicyFilter implements Filter 
 {
-	private static final Logger	logger = LogFormatter.getConsoleLogger(ContentSecurityPolicyFilter.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(ContentSecurityPolicyFilter.class);
 	public static final String CONTENT_SECURITY_POLICY_HEADER = "Content-Security-Policy";
     public static final String CONTENT_SECURITY_POLICY_REPORT_ONLY_HEADER = "Content-Security-Policy-Report-Only";
 
@@ -79,56 +79,66 @@ public class ContentSecurityPolicyFilter implements Filter
     private String frameAncestors;
     private String pluginTypes;
 
-
 	/**
 	 * Default constructor.
 	 */
 	public ContentSecurityPolicyFilter()
 	{
-		logger.info("Instantiating Content Security Policy Filter");
+		logger.info( "Instantiating Content Security Policy Filter");
 	}
     
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
-    public void init(FilterConfig filterConfig) throws ServletException
+    public void init(FilterConfig filterConfig)
     {
-    	// determine CSP values (filterConfig or default)
-        reportOnly = getParameterBooleanValue(filterConfig, REPORT_ONLY);
-        reportUri = getParameterValue(filterConfig, REPORT_URI);
-        sandbox = getParameterValue(filterConfig, SANDBOX);
-        defaultSrc = getParameterValue(filterConfig, DEFAULT_SRC, KEYWORD_NONE);
-        imgSrc = getParameterValue(filterConfig, IMG_SRC);
-        scriptSrc = getParameterValue(filterConfig, SCRIPT_SRC);
-        styleSrc = getParameterValue(filterConfig, STYLE_SRC);
-        fontSrc = getParameterValue(filterConfig, FONT_SRC);
-        connectSrc = getParameterValue(filterConfig, CONNECT_SRC);
-        objectSrc = getParameterValue(filterConfig, OBJECT_SRC);
-        mediaSrc = getParameterValue(filterConfig, MEDIA_SRC);
-        childSrc = getParameterValue(filterConfig, CHILD_SRC);
-        formAction = getParameterValue(filterConfig, FORM_ACTION);
-        frameAncestors = getParameterValue(filterConfig, FRAME_ANCESTORS);
-        pluginTypes = getParameterValue(filterConfig, PLUGIN_TYPES);
+    	try {
+    		logger.info( "Initializing Content Security Policy Filter " + getClass().getPackage().getImplementationVersion());
+    		
+	    	// determine CSP values (filterConfig or default)
+	        reportOnly = getParameterBooleanValue(filterConfig, REPORT_ONLY);
+	        reportUri = getParameterValue(filterConfig, REPORT_URI);
+	        sandbox = getParameterValue(filterConfig, SANDBOX);
+	        defaultSrc = getParameterValue(filterConfig, DEFAULT_SRC, KEYWORD_NONE);
+	        imgSrc = getParameterValue(filterConfig, IMG_SRC);
+	        scriptSrc = getParameterValue(filterConfig, SCRIPT_SRC);
+	        styleSrc = getParameterValue(filterConfig, STYLE_SRC);
+	        fontSrc = getParameterValue(filterConfig, FONT_SRC);
+	        connectSrc = getParameterValue(filterConfig, CONNECT_SRC);
+	        objectSrc = getParameterValue(filterConfig, OBJECT_SRC);
+	        mediaSrc = getParameterValue(filterConfig, MEDIA_SRC);
+	        childSrc = getParameterValue(filterConfig, CHILD_SRC);
+	        formAction = getParameterValue(filterConfig, FORM_ACTION);
+	        frameAncestors = getParameterValue(filterConfig, FRAME_ANCESTORS);
+	        pluginTypes = getParameterValue(filterConfig, PLUGIN_TYPES);
+    	} catch (Exception e) {
+    		logger.error("Unable to read Filter Configuration");
+    	}
+    	
     }
 
     private String getParameterValue(FilterConfig filterConfig, String paramName, String defaultValue) 
     {
         String value = filterConfig.getInitParameter(paramName);
         if (StringUtils.isBlank(value)) {
-            logger.fine("Setting Parameter " + paramName + " to default value: " + defaultValue);
             value = defaultValue;
         }
+        logger.info("Read string parameter {} = {}", paramName, value);
         return value;
     }
 
     private String getParameterValue(FilterConfig filterConfig, String paramName) 
     {
-        return filterConfig.getInitParameter(paramName);
+    	String value = filterConfig.getInitParameter(paramName);
+    	logger.info("Read string parameter {} = {}", paramName, value);
+    	return value;
     }
 
     private boolean getParameterBooleanValue(FilterConfig filterConfig, String paramName) 
     {
-        return "true".equalsIgnoreCase(filterConfig.getInitParameter(paramName));
+    	String value = filterConfig.getInitParameter(paramName);
+    	logger.info("Read boolean parameter {} = {}", paramName, value);
+        return "true".equalsIgnoreCase(value);
     }
 
 	/**
@@ -140,10 +150,10 @@ public class ContentSecurityPolicyFilter implements Filter
         String contentSecurityPolicyHeaderName = reportOnly ? CONTENT_SECURITY_POLICY_REPORT_ONLY_HEADER : CONTENT_SECURITY_POLICY_HEADER;
         String contentSecurityPolicy = getContentSecurityPolicy();
 
-        logger.fine("Adding Header " + contentSecurityPolicyHeaderName + " = " + contentSecurityPolicy);
+        logger.debug("Adding Header {} = {}", contentSecurityPolicyHeaderName, contentSecurityPolicy);
         httpResponse.addHeader(contentSecurityPolicyHeaderName, contentSecurityPolicy);
 
-     // pass the request along the filter chain
+        // pass the request along the filter chain
         chain.doFilter(request, response);
     }
 
