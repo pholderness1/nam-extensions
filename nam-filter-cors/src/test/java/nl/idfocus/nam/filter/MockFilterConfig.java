@@ -53,7 +53,7 @@ public class MockFilterConfig implements FilterConfig
 	{
 		params.put(CorsFilter.PARAM_CORS_ALLOWED_HEADERS, "Accept");
 		params.put(CorsFilter.PARAM_CORS_ALLOWED_METHODS, "GET,POST");
-		params.put(CorsFilter.PARAM_CORS_ALLOWED_ORIGINS, "*.idfocus.nl,*.mobi-id.nl");
+		params.put(CorsFilter.PARAM_CORS_ALLOWED_ORIGINS, "http://*.idfocus.nl,https://*.mobi-id.nl");
 		params.put(CorsFilter.PARAM_CORS_EXPOSED_HEADERS, "Accept");
 		params.put(CorsFilter.PARAM_CORS_PREFLIGHT_MAXAGE, "1000");
 		params.put(CorsFilter.PARAM_CORS_REQUEST_DECORATE, "true");

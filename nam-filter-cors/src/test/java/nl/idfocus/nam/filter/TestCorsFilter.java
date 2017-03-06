@@ -1,11 +1,9 @@
 package nl.idfocus.nam.filter;
 
-import static org.junit.Assert.*;
-
-import java.util.Enumeration;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import javax.servlet.FilterConfig;
-import javax.servlet.ServletContext;
 
 import org.junit.After;
 import org.junit.Before;
@@ -45,10 +43,22 @@ public class TestCorsFilter
 	}
 
 	@Test
-	public void testIsOriginAllowed() throws Exception
+	public void testIsIDFOriginAllowed() throws Exception
 	{
 		filter.init(filterConfig);
 		assertEquals(true,filter.isOriginAllowed("http://www.idfocus.nl"));
+		assertEquals(true,filter.isOriginAllowed("http://iets.idfocus.nl"));
+		assertEquals(false,filter.isOriginAllowed("https://www.idfocus.nl"));
+	}
+
+	@Test
+	public void testIsMobiOriginAllowed() throws Exception
+	{
+		filter.init(filterConfig);
+		assertEquals(false,filter.isOriginAllowed("http://www.mobi-id.nl"));
+		assertEquals(false,filter.isOriginAllowed("http://iets.mobi-id.nl"));
+		assertEquals(true,filter.isOriginAllowed("https://www.mobi-id.nl"));
+		assertEquals(true,filter.isOriginAllowed("https://iets.mobi-id.nl"));
 	}
 
 	@Test

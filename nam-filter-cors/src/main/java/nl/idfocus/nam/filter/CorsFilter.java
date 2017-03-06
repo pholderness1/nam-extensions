@@ -955,7 +955,7 @@ public class CorsFilter implements Filter
 			if (allowedOrigin.contains("*") && allowedOrigin.indexOf('*') == allowedOrigin.lastIndexOf('*'))
 			{
 				String comparison = createWildcardMatch(allowedOrigin);
-				System.out.println("Comparison: '"+origin+"' against '"+comparison+"'");
+				log.debug("Comparison: '"+origin+"' against '"+comparison+"'");
 				if (origin.matches(comparison))
 					return true;
 			}
@@ -976,7 +976,7 @@ public class CorsFilter implements Filter
 		while (m.find()) {
 		    if(m.group(1) != null) 
 		    	m.appendReplacement(b, ".*");
-		    else m.appendReplacement(b, Pattern.quote(m.group(0)));
+		    else m.appendReplacement(b, "\\\\Q" + m.group(0) + "\\\\E");
 		}
 		m.appendTail(b);
 		return b.toString();		
