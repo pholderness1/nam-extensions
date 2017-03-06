@@ -943,7 +943,7 @@ public class CorsFilter implements Filter
 	 * @return <code>true</code> if origin is allowed; <code>false</code>
 	 *         otherwise.
 	 */
-	private boolean isOriginAllowed(final String origin)
+	protected boolean isOriginAllowed(final String origin)
 	{
 		if (anyOriginAllowed)
 		{
@@ -955,6 +955,7 @@ public class CorsFilter implements Filter
 			if (allowedOrigin.contains("*") && allowedOrigin.indexOf('*') == allowedOrigin.lastIndexOf('*'))
 			{
 				String comparison = createWildcardMatch(allowedOrigin);
+				System.out.println("Comparison: '"+origin+"' against '"+comparison+"'");
 				if (origin.matches(comparison))
 					return true;
 			}
