@@ -5,6 +5,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doAnswer;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,6 +32,9 @@ import javax.naming.directory.BasicAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import com.novell.nidp.NIDPContext;
 import com.novell.nidp.NIDPException;
@@ -98,6 +102,20 @@ public class MockNIDP {
         LDAPUserAuthority authority = mock(LDAPUserAuthority.class);
         given(authority.isEDir()).willReturn(true);
         given(authority.getID()).willReturn("myStore");
+        try {
+        	doAnswer(new Answer<Void>() {
+        	    public Void answer(InvocationOnMock invocation) {
+        	        Object[] args = invocation.getArguments();
+        	        System.out.println("modifyAttributes called with arguments: " + 
+        	        		((NIDPPrincipal)args[0]).getUserIdentifier() + " " +
+        	        		((String[])args[1])[0] + " " +
+        	        		((String[])args[2])[0]
+        	        		);
+        	        return null;
+        	      }
+        	  }).when(authority).modifyAttributes(any(NIDPPrincipal.class), any(String[].class), any(String[].class));
+//        	doNothing().when(authority).modifyAttributes(any(NIDPPrincipal.class), any(String[].class), any(String[].class));
+        } catch (NIDPException e) {}
         NIDPPrincipal princ;
         if( withprinc )
         {
@@ -117,6 +135,7 @@ public class MockNIDP {
     	attrs.put("telephoneNumber", "0698765432");
     	attrs.put("company", "idfocus");
     	attrs.put("smsExpiration", "30");
+    	attrs.put("totpSecretValuePam", "TTLRB6ULNFYBTUZB\r\n\" TOTP_AUTH\r\n78636072\r\n81915571\r\n52984984\r\n34278800\r\n88440605\r\n");
     	// TTLRB6ULNFYBTUZB
     	attrs.put("totpSecretKey", "bdtVnx+0zTQGKnSSa62lJlU0G/rUgi2j1AtbS0nlXmk=");
     	// [78636072, 81915571, 52984984, 34278800, 88440605]

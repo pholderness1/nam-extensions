@@ -11,6 +11,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import nl.idfocus.nam.totp.store.NIDPStore;
+import nl.idfocus.nam.totp.store.PwmStore;
 import nl.idfocus.nam.totp.store.EdirSecretStore;
 import nl.idfocus.nam.totp.store.ISecretStore;
 import nl.idfocus.nam.totp.store.LdapStore;
@@ -28,7 +29,7 @@ public class Authenticator
 	private static final Level  errlevel = Level.SEVERE;
 
 	private NIDPPrincipal princ;
-	private ISecretStore store;
+	private ISecretStore secretStore;
 	private int windowSize;  // default 3 - max 17 (from google docs)
 	private String secretKey;
 	private List<Integer> scratchCodes;
@@ -36,16 +37,25 @@ public class Authenticator
 	private Authenticator( Properties props ) throws TOTPException
 	{
 		logger.log(loglevel, "Initializing");
-		windowSize = Integer.parseInt( props.getProperty( TOTPConstants.PARAM_WINDOW_SIZE,  "3") );
-		String storeType = props.getProperty( TOTPConstants.PARAM_STORE_TYPE,  TOTPConstants.STORE_NIDP );
+		windowSize = Integer.parseInt( props.getProperty( TOTPConstants.PARAM_WINDOW_SIZE, "3") );
+		secretStore = initializeSecretStore(props);
+		logger.log(loglevel, "done.");
+	}
+
+	private ISecretStore initializeSecretStore(Properties props) throws TOTPException
+	{
+		ISecretStore store;
+		String storeType = props.getProperty( TOTPConstants.PARAM_STORE_TYPE, TOTPConstants.STORE_NIDP );
 		if ( storeType.equals(TOTPConstants.STORE_EDIR) )
 			store = new EdirSecretStore();
 		else if ( storeType.equals(TOTPConstants.STORE_LDAP))
 			store = new LdapStore();
+		else if ( storeType.equals(TOTPConstants.STORE_PWM))
+			store = new PwmStore();
 		else
 			store = new NIDPStore();
 		store.init(props);
-		logger.log(loglevel, "done.");
+		return store;
 	}
 
 	public Authenticator( Properties props, UserRegistration reg ) throws TOTPException
@@ -74,9 +84,9 @@ public class Authenticator
 		// save key for caching
 		try
 		{
-			secretKey = this.store.readSecretFromStore(princ);
-			scratchCodes = this.store.readScratchCodesFromStore(princ);
-			logger.log(dbglevel, "Retrieved key value and scratch codes from store.");
+			secretKey = this.secretStore.readSecretFromStore(princ);
+			scratchCodes = this.secretStore.readScratchCodesFromStore(princ);
+			logger.log(dbglevel, "Retrieved key value and scratch codes from secretStore.");
 			return secretKey;
 		} catch (TOTPException e) {
 			throw new TOTPException("Not registered");
@@ -207,13 +217,13 @@ public class Authenticator
 	{
 		if( this.scratchCodes != null )
 		{
-			this.store.writeScratchCodesToStore(princ, scratchCodes.toArray(new Integer[scratchCodes.size()]));
-			logger.log(dbglevel, "Successfully saved scratch codes to store." );
+			this.secretStore.writeScratchCodesToStore(princ, scratchCodes.toArray(new Integer[scratchCodes.size()]));
+			logger.log(dbglevel, "Successfully saved scratch codes to secretStore." );
 		}
 		if ( this.secretKey != null )
 		{
-			this.store.writeSecretToStore( princ, secretKey );
-			logger.log(dbglevel, "Successfully saved key to store." );
+			this.secretStore.writeSecretToStore( princ, secretKey );
+			logger.log(dbglevel, "Successfully saved key to secretStore." );
 		}
 		else
 			throw new TOTPException("Persistence failed: secretkey null");

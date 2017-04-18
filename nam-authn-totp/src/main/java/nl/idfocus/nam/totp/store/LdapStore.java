@@ -51,7 +51,7 @@ public class LdapStore implements ISecretStore
 		attrNameSecretKey = props.getProperty(PROP_KEY_ATTRIBUTE_NAME, "l");
 		attrNameScratchCodes = props.getProperty(PROP_SCRATCH_ATTRIBUTE_NAME, "description");
 		String keyValue = props.getProperty(PROP_ENCRYPTION_KEY);
-		initializeKey(keyValue);
+		initializeCiphersWithKey(keyValue);
 	}
 
 	@Override
@@ -170,7 +170,7 @@ public class LdapStore implements ISecretStore
 		}
 	}
 
-	private void initializeKey(String keyValue) throws TOTPException
+	private void initializeCiphersWithKey(String keyValue) throws TOTPException
 	{
 		try
 		{

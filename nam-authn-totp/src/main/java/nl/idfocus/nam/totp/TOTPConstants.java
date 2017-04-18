@@ -27,6 +27,7 @@ public class TOTPConstants
 	public static final String STORE_EDIR = "eDirectory";
 	public static final String STORE_NIDP = "NIDP";
 	public static final String STORE_LDAP = "LDAP";
+	public static final String STORE_PWM  = "PWM";
 
 	public static final String JSP_ATTR_IMAGE   = "totp-qrimage";
 	public static final String JSP_ATTR_SECRET  = "totp-secret";
