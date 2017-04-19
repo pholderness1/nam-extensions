@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: NAM: CORS Filter Implementation
-Implementation-Version: 1.0.2-SNAPSHOT
-Built-By: mvreijn
-Implementation-Vendor-Id: nl.idfocus.nam
-Build-Jdk: 1.8.0_51
-Created-By: Maven Integration for Eclipse
-
