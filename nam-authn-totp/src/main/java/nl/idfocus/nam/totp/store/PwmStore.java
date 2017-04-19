@@ -17,8 +17,8 @@ import nl.idfocus.nam.totp.TOTPException;
 
 public class PwmStore implements ISecretStore
 {
-	public static final String	PROP_STORAGE_ATTRIBUTE_NAME	= "SecretKeyAttribute";
-	public static final String	PROP_STORAGE_FORMAT_NAME	= "SecretKeyFormat";
+	public static final String	PROP_STORAGE_ATTRIBUTE_NAME	= "secretKeyAttribute";
+	public static final String	PROP_STORAGE_FORMAT_NAME	= "secretKeyFormat";
 
 	public static final String	FORMAT_JSON					= "JSON";
 	/**
@@ -37,7 +37,7 @@ public class PwmStore implements ISecretStore
 	@Override
 	public void init(Properties props) throws TOTPException
 	{
-		storageAttribute = props.getProperty(PROP_STORAGE_ATTRIBUTE_NAME, "description");
+		storageAttribute = props.getProperty(PROP_STORAGE_ATTRIBUTE_NAME, "pwmOtpSecret");
 		storageFormat = props.getProperty(PROP_STORAGE_FORMAT_NAME, FORMAT_PAM);
 	}
 

@@ -25,7 +25,7 @@ public class TOTPConstants
 	public final static String PARAM_EXP_ATTRIBUTE  = "expirationAttribute";
 	public final static String PARAM_EXP_TIME       = "expirationTime";
 
-	public static final String STORE_EDIR = "eDirectory";
+	public static final String STORE_EDIR = "EDIR";
 	public static final String STORE_NIDP = "NIDP";
 	public static final String STORE_LDAP = "LDAP";
 	public static final String STORE_PWM  = "PWM";

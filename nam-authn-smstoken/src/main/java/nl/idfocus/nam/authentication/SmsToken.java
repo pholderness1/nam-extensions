@@ -212,7 +212,7 @@ public class SmsToken extends LocalAuthenticationClass
 	public SmsToken(Properties props, ArrayList<UserAuthority> stores) throws NIDPException 
 	{
 		super( props, stores );
-		logger.log( Level.INFO, "SMS Token Authentication Class build "+PKGBUILD+" (c) IDFocus B.V. <info@idfocus.nl>" );
+		logger.log( Level.INFO, "SMS Token Authentication Class build {0} (c) IDFocus B.V. <info@idfocus.nl>", PKGBUILD);
 		// Determine debug setting
 		debugMode = Boolean.parseBoolean( props.getProperty(PROP_DEBUG, "false" ) );
 		if ( debugMode )
@@ -223,7 +223,7 @@ public class SmsToken extends LocalAuthenticationClass
 			while ( itr.hasNext() )
 			{
 				String key = (String) itr.next();
-				logger.log( Level.FINEST, "[DBG] property "+key+": "+ props.getProperty(key) );
+				logger.log(Level.FINE, "[DBG] property {0}: {1}", new Object[] { key, props.getProperty(key) });
 			}
 		}
 		// Read known settings
@@ -832,13 +832,12 @@ public class SmsToken extends LocalAuthenticationClass
 	private Attribute getLdapAttribute( NIDPPrincipal princ, String attributeName )
 	{
 		UserAuthority ua = princ.getAuthority();
-		logger.log( Level.FINEST, "getting attribute: "+attributeName );
+		logger.log( Level.FINEST, "getting attribute {0}", attributeName);
 		Attributes attrs = ua.getAttributes( princ , new String[] { attributeName } );
-		logger.log( Level.FINEST, "getting attribute");
 		Attribute result = attrs.get( attributeName );
 		if ( result == null )
 		{
-			logger.log(Level.FINEST, "Attribute "+attributeName+" not found." );
+			logger.log(Level.FINEST, "Attribute {0} not found.", attributeName);
 			result = new BasicAttribute(attributeName);
 		}
 		return result;
