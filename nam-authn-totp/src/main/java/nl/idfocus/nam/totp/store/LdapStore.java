@@ -34,9 +34,9 @@ import nl.idfocus.nam.util.Base64;
 
 public class LdapStore implements ISecretStore
 {
-	public static final String	PROP_ENCRYPTION_KEY			= "EncryptionKeyValue";
-	public static final String	PROP_KEY_ATTRIBUTE_NAME		= "SecretKeyAttribute";
-	public static final String	PROP_SCRATCH_ATTRIBUTE_NAME	= "ScratchCodeAttribute";
+	public static final String	PROP_ENCRYPTION_KEY			= "encryptionKeyValue";
+	public static final String	PROP_KEY_ATTRIBUTE_NAME		= "secretKeyAttribute";
+	public static final String	PROP_SCRATCH_ATTRIBUTE_NAME	= "scratchCodeAttribute";
 
 	private static final String	INIT_VECTOR					= "Vot4Du7gIj9nAb6T";
 	private static final String	KEY_SALT					= "6d-49Hk5";

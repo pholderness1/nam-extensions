@@ -82,6 +82,27 @@ public class TestTOTPAuth
         assertEquals( LocalAuthenticationClass.NOT_AUTHENTICATED, newClass.authenticate() );
 	}
 
+	@Test
+	public void testDoAuthenticateScratchCodePWM() throws Exception
+	{
+		classProps.put("storeType", "PWM");
+		classProps.put("secretKeyAttribute", "totpSecretValuePam");
+        LocalAuthenticationClass newClass = rawDefinition.getInstance(m_UserStores, classProps);
+		classProps.put("Principal", MockNIDP.getPrincipal() );
+        newClass.initializeRequest(MockNIDP.getRequest(), MockNIDP.getResponse(), MockNIDP.getIdpSession(), MockNIDP.getSessionData(), false, "returnurl");
+        assertEquals( LocalAuthenticationClass.AUTHENTICATED, newClass.authenticate() );
+	}
+
+	@Test
+	public void testDoAuthenticateScratchCodeLDAP() throws Exception
+	{
+		classProps.put("storeType", "LDAP");
+        LocalAuthenticationClass newClass = rawDefinition.getInstance(m_UserStores, classProps);
+		classProps.put("Principal", MockNIDP.getPrincipal() );
+        newClass.initializeRequest(MockNIDP.getRequest(), MockNIDP.getResponse(), MockNIDP.getIdpSession(), MockNIDP.getSessionData(), false, "returnurl");
+        assertEquals( LocalAuthenticationClass.AUTHENTICATED, newClass.authenticate() );
+	}
+
 	private Properties getRandstadProperties()
 	{
 		Properties props = new Properties();

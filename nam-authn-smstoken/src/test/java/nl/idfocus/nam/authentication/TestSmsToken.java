@@ -105,7 +105,7 @@ public class TestSmsToken
 	{
 		classProps.put("scratchCodeType", "totp");
 		classProps.put("storeType", "PWM");
-		classProps.put("SecretKeyAttribute", "totpSecretValuePam");
+		classProps.put("secretKeyAttribute", "totpSecretValuePam");
         LocalAuthenticationClass newClass = rawDefinition.getInstance(m_UserStores, classProps);
 		classProps.put("Principal", MockNIDP.getPrincipal() );
 		// Ensure second try

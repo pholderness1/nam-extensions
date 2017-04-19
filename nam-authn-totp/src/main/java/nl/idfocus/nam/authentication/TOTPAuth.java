@@ -133,7 +133,7 @@ public class TOTPAuth extends LocalAuthenticationClass
 
 	private static final String DEF_DEBUG          = "false";
 	private static final String DEF_INPUT_TOKEN    = "Ecom_Token";
-	private static final String DEF_INPUT_BACKUP   = "Ecom_Scratchcode";
+	private static final String DEF_INPUT_BACKUP   = "Ecom_Backupcode";
 	private static final String DEF_INPUT_JSP_REG  = "totpregistration";
 	private static final String DEF_INPUT_JSP_AUT  = "totptoken";
 	private static final String DEF_INPUT_POSTPONE = "Ecom_Postpone";
@@ -184,7 +184,7 @@ public class TOTPAuth extends LocalAuthenticationClass
 		 * read property settings
 		 */
 		valueInputToken    = props.getProperty( PROP_INPUT_TOKEN   , DEF_INPUT_TOKEN );
-		valueInputScratchcode = props.getProperty( PROP_INPUT_BACKUP   , DEF_INPUT_BACKUP );
+		valueInputScratchcode = props.getProperty( PROP_INPUT_BACKUP, DEF_INPUT_BACKUP );
 		valueInputPostpone = props.getProperty( PROP_INPUT_POSTPONE, DEF_INPUT_POSTPONE );
 		inputJspRegistration  = props.getProperty( PROP_INPUT_JSP_REG , DEF_INPUT_JSP_REG );
 		inputJspAuthentication  = props.getProperty( PROP_INPUT_JSP_AUT , DEF_INPUT_JSP_AUT );
