@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.TimeZone;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,11 +40,11 @@ import com.novell.nidp.common.authority.ldap.LDAPPrincipal;
  * The TOTPAuth class performs Time-based OTP authentication similar to Google Authenticator. <br/>
  * </p><p>
  * The settings of this class allow for extensive configuration regarding displayed information, TOTP settings, enrollment and re-enrollment. <br/>
- * Features include storage of the shared secret in NIDP Secret (default), LDAP Attribute or eDirectory Secret Store. <br/>
+ * Features include storage of the shared secret in NIDP Secret (default), eDirectory Secret Store, PWM PAM Format or encrypted LDAP attribute. <br/>
  * AES encryption is used for secure storage. <br/>
  * </p>
  * @author IDFocus B.V. (mvreijn@idfocus.nl)
- * @version Tested on NetIQ Access Manager 4.0.x and 4.1.x
+ * @version Tested on NetIQ Access Manager 4.x
  */
 public class TOTPAuth extends LocalAuthenticationClass 
 {
@@ -65,6 +64,11 @@ public class TOTPAuth extends LocalAuthenticationClass
 	 * input field may be altered from the default specified in {@link #DEF_INPUT_TOKEN}
 	 */
 	private static final String PROP_INPUT_TOKEN    = TOTPConstants.PARAM_INPUT_TOKEN;
+	/**
+	 * By setting this property name on the class or method, the name of the backupcode <br/>
+	 * input field may be altered from the default specified in {@link #DEF_INPUT_BACKUP}	 * 
+	 */
+	private static final String PROP_INPUT_BACKUP    = TOTPConstants.PARAM_INPUT_BACKUP;
 	/**
 	 * By setting this property name on the class or method, the name of the totp <br/>
 	 * registration JSP page may be altered from the default specified in {@link #DEF_INPUT_JSP_REG}
@@ -129,6 +133,7 @@ public class TOTPAuth extends LocalAuthenticationClass
 
 	private static final String DEF_DEBUG          = "false";
 	private static final String DEF_INPUT_TOKEN    = "Ecom_Token";
+	private static final String DEF_INPUT_BACKUP   = "Ecom_Scratchcode";
 	private static final String DEF_INPUT_JSP_REG  = "totpregistration";
 	private static final String DEF_INPUT_JSP_AUT  = "totptoken";
 	private static final String DEF_INPUT_POSTPONE = "Ecom_Postpone";
@@ -141,6 +146,7 @@ public class TOTPAuth extends LocalAuthenticationClass
 	private static final String DEF_EXP_TIME       = "0";
 
 	private final String valueInputToken;
+	private final String valueInputScratchcode;
 	private final String inputJspRegistration;
 	private final String inputJspAuthentication;
 	private final String valueInputPostpone;
@@ -152,8 +158,7 @@ public class TOTPAuth extends LocalAuthenticationClass
 	private final String expirationAttributeName;
 	private final int    expirationTime;
 
-	private static final String LAST_CHANGED_REVISION = "$LastChangedRevision: 86 $";
-	private final String revision;
+	private static final String PKGBUILD = TOTPAuth.class.getPackage().getImplementationVersion();
 	private NIDPPrincipal localPrincipal;
 	private final String sessionUser;
 	private final boolean debugMode;
@@ -161,29 +166,25 @@ public class TOTPAuth extends LocalAuthenticationClass
 	public TOTPAuth(Properties props, ArrayList<UserAuthority> stores) 
 	{
 		super(props, stores);
-		this.revision = LAST_CHANGED_REVISION.substring( LAST_CHANGED_REVISION.indexOf(':')+1, LAST_CHANGED_REVISION.lastIndexOf('$') ).trim();
-		logger.log( loglevel, "TOTP Token Authentication Class rev "+revision+" (c) IDFocus B.V. <info@idfocus.nl>" );
-		logger.log( loglevel, "Initializing TOTPAuth" );
+		logger.log(loglevel, "TOTP Token Authentication Class build {0} (c) IDFocus B.V. <info@idfocus.nl>", PKGBUILD);
 		// Determine debug setting
 		debugMode = Boolean.parseBoolean( props.getProperty( PROP_DEBUG, DEF_DEBUG ) );
 		if ( debugMode )
 		{
-			for ( Handler hd : logger.getHandlers() )
-				hd.setLevel( dbglevel );
-			logger.setLevel( dbglevel );
-			logger.log( dbglevel, "$Id: TOTPAuth.java 86 2017-02-08 22:47:52Z mvreijn $" );
+			LogFormatter.setLoggerDebugMode(logger);
 			// Read setup properties DEBUG
 			Iterator<?> itr = props.keySet().iterator();
 			while ( itr.hasNext() )
 			{
 				String key = (String) itr.next();
-				logger.log( dbglevel, "[DBG] property "+key+": "+ props.getProperty(key) );
+				logger.log( dbglevel, "[DBG] property {0}: {1}", new Object[] { key, props.getProperty(key) });
 			}
 		}
 		/* 
 		 * read property settings
 		 */
 		valueInputToken    = props.getProperty( PROP_INPUT_TOKEN   , DEF_INPUT_TOKEN );
+		valueInputScratchcode = props.getProperty( PROP_INPUT_BACKUP   , DEF_INPUT_BACKUP );
 		valueInputPostpone = props.getProperty( PROP_INPUT_POSTPONE, DEF_INPUT_POSTPONE );
 		inputJspRegistration  = props.getProperty( PROP_INPUT_JSP_REG , DEF_INPUT_JSP_REG );
 		inputJspAuthentication  = props.getProperty( PROP_INPUT_JSP_AUT , DEF_INPUT_JSP_AUT );
@@ -239,13 +240,13 @@ public class TOTPAuth extends LocalAuthenticationClass
 			String cookieName = getCookieName( expirationCookieName, localPrincipal.getUserIdentifier() );
 			if ( registered && delay > 0 && checkCookieValidity( cookieName ) )
 			{
-				logger.log(loglevel, "Cookie "+cookieName+" is present and valid, skipping authentication");
+				logger.log(loglevel, "Cookie {0} is present and valid, skipping authentication", cookieName);
 				setPrincipal(localPrincipal);
 				return AUTHENTICATED;
 			}
 			else
 			{
-				logger.log(dbglevel, "Cookie "+cookieName+" is not present or not valid, clearing");
+				logger.log(dbglevel, "Cookie {0} is not present or not valid, clearing", cookieName);
 				clearCookie( cookieName );
 			}
 			String userName = resolveUserName();
@@ -269,6 +270,7 @@ public class TOTPAuth extends LocalAuthenticationClass
 		{
 			logger.log(dbglevel, "Process authentication.");
 			String token = m_Request.getParameter( valueInputToken );
+			String scratchcode = m_Request.getParameter( valueInputScratchcode );
 			Integer delay = (Integer) m_Request.getSession().getAttribute( TOTPConstants.SESSION_ATTR_DELAY );
 			if ( delay == null )
 				delay = expirationTime;
@@ -279,9 +281,8 @@ public class TOTPAuth extends LocalAuthenticationClass
 				setPrincipal(localPrincipal);
 				return AUTHENTICATED;
 			}
-			else if (token != null && token.matches("\\d+") && authn.validateScratchCode(Integer.parseInt(token)))
+			else if (isValidScratchCode(authn, scratchcode))
 			{
-				logger.log(dbglevel, "Authentication successful using a scratch code.");
 				// Save rest of codes
 				try
 				{
@@ -289,11 +290,12 @@ public class TOTPAuth extends LocalAuthenticationClass
 				}
 				catch (TOTPException e)
 				{
-					logger.log(errlevel, "Could not scratch code. Failing authentication.",e);
+					logger.log(errlevel, "Could not delete scratch code. Failing authentication.", e);
 					return NOT_AUTHENTICATED;
 				}
 				// Can't use cookie with scratch code
 				setPrincipal(localPrincipal);
+				logger.log(dbglevel, "Authentication successful using {0} as a scratch code.", scratchcode);
 				return AUTHENTICATED;
 			}
 			else
@@ -334,6 +336,22 @@ public class TOTPAuth extends LocalAuthenticationClass
 		return NOT_AUTHENTICATED;
 	}
 
+	private boolean isValidScratchCode(Authenticator authn, String token)
+	{
+		if (token != null && token.matches("\\d+"))
+		{
+			try
+			{
+				return authn.validateScratchCode(Integer.parseInt(token));
+			}
+			catch (NumberFormatException | TOTPException e)
+			{
+				logger.log(Level.WARNING, "Could not validate scratch code "+token, e);
+			}
+		}
+		return false;
+	}
+
 	private Properties createPropertySet()
 	{
 		Properties props = new Properties();
@@ -359,7 +377,7 @@ public class TOTPAuth extends LocalAuthenticationClass
 		// Fallback is principal DN
 		if ( userName == null || userName.isEmpty() )
 			userName = localPrincipal.getUserIdentifier();
-		logger.log(dbglevel, "Resolved username: '"+userName+"'.");
+		logger.log(dbglevel, "Resolved username '{0}'", userName);
 		return userName;
 	}
 
@@ -370,7 +388,7 @@ public class TOTPAuth extends LocalAuthenticationClass
 		m_PageToShow.addAttribute( NIDPConstants.ATTR_URL, ( getReturnURL() != null ? getReturnURL() : m_Request.getRequestURL().toString() ) );
 		if ( delay > 0 )
 		{
-			logger.log(dbglevel, "Adding delay: "+delay+".");
+			logger.log(dbglevel, "Adding delay {0}.", delay);
 			m_Request.getSession().setAttribute( TOTPConstants.SESSION_ATTR_DELAY, delay );
 			m_PageToShow.addAttribute( TOTPConstants.JSP_ATTR_DELAY, Integer.toString( delay ) );
 		}		
@@ -433,7 +451,7 @@ public class TOTPAuth extends LocalAuthenticationClass
 	                {
 	                    NIDPSubject nidpsubject = m_Session.getSubject();
 	                    NIDPPrincipal[] allNidpPrincipals = nidpsubject.getPrincipals();
-	                    logger.log( dbglevel, "found "+allNidpPrincipals.length+" principal(s) in session subject");
+	                    logger.log( dbglevel, "found {0} principal(s) in session subject", allNidpPrincipals.length);
 	                    if(allNidpPrincipals.length == 1)
 	                    {
 	                        nidpprincipal = allNidpPrincipals[0];
@@ -572,13 +590,12 @@ public class TOTPAuth extends LocalAuthenticationClass
     private Attribute getAttributeFromPrincipal( NIDPPrincipal princ, String attrname )
     {
 		UserAuthority ua = princ.getAuthority();
-		logger.log( dbglevel, "getting attribute: "+attrname );
+		logger.log( dbglevel, "getting attribute {0}.", attrname );
 		Attributes attrs = ua.getAttributes( princ , new String[] { attrname } );
-		logger.log( dbglevel, "getting attribute");
 		Attribute result = attrs.get( attrname );
 		if ( result == null )
 		{
-			logger.log(dbglevel, "Attribute "+attrname+" not found." );
+			logger.log(dbglevel, "Attribute {0} not found.", attrname);
 			result = new BasicAttribute(attrname);
 		}
 		return result;
@@ -612,10 +629,10 @@ public class TOTPAuth extends LocalAuthenticationClass
 		if ( ck != null )
 		{
 			int lifetime = ck.getMaxAge();
-			logger.log( dbglevel, "lifetime: "+lifetime );
-			logger.log( dbglevel, "contents: "+ck.getValue() );
+			logger.log( dbglevel, "lifetime: {0}", lifetime );
+			logger.log( dbglevel, "contents: {0}", ck.getValue() );
 			boolean invalid = isDatePast( ck.getValue() );
-			logger.log( dbglevel, "date past: "+invalid );
+			logger.log( dbglevel, "date past: {0}", invalid );
 			if ( lifetime > 0 || !invalid )
 			{
 				return true;

@@ -102,6 +102,7 @@ public class MockNIDP {
         LDAPUserAuthority authority = mock(LDAPUserAuthority.class);
         given(authority.isEDir()).willReturn(true);
         given(authority.getID()).willReturn("myStore");
+        // Print modification calls to stdout
         try {
         	doAnswer(new Answer<Void>() {
         	    public Void answer(InvocationOnMock invocation) {
@@ -109,12 +110,11 @@ public class MockNIDP {
         	        System.out.println("modifyAttributes called with arguments: " + 
         	        		((NIDPPrincipal)args[0]).getUserIdentifier() + " " +
         	        		((String[])args[1])[0] + " " +
-        	        		((String[])args[2])[0]
+        	        		(((String[])args[2]).length > 0 ? ((String[])args[2])[0] : "" )
         	        		);
         	        return null;
         	      }
         	  }).when(authority).modifyAttributes(any(NIDPPrincipal.class), any(String[].class), any(String[].class));
-//        	doNothing().when(authority).modifyAttributes(any(NIDPPrincipal.class), any(String[].class), any(String[].class));
         } catch (NIDPException e) {}
         NIDPPrincipal princ;
         if( withprinc )
@@ -135,6 +135,7 @@ public class MockNIDP {
     	attrs.put("telephoneNumber", "0698765432");
     	attrs.put("company", "idfocus");
     	attrs.put("smsExpiration", "30");
+    	attrs.put("ldapScratchCode", "81915571");
     	attrs.put("totpSecretValuePam", "TTLRB6ULNFYBTUZB\r\n\" TOTP_AUTH\r\n78636072\r\n81915571\r\n52984984\r\n34278800\r\n88440605\r\n");
     	// TTLRB6ULNFYBTUZB
     	attrs.put("totpSecretKey", "bdtVnx+0zTQGKnSSa62lJlU0G/rUgi2j1AtbS0nlXmk=");
@@ -154,9 +155,11 @@ public class MockNIDP {
         given(req.getRequestURL()).willReturn(new StringBuffer("http://request.url/path?query"));
         given(req.getScheme()).willReturn("https");
         given(req.getLocale()).willReturn(new Locale("en"));
-        given(req.getSession()).willReturn(getHttpSession());
-//        given(req.getAttribute("javax.servlet.request.X509Certificate")).willReturn(getRdwClientCertificate());
+        HttpSession session = getHttpSession();
+        given(req.getSession()).willReturn(session);
         given(req.getParameter(SAMLConstants.PARM_REQUEST)).willReturn("hZJBj9owEIXvlfofLN8TbwhlFwuQUlBVpG2LgO2hN8cZwKpjp55Js+2vrzcLLK1W9OqZb96bN56gqu2gkUVLB7eGHy0gscfaOpTPlSlvg5NeoUHpVA0oSctN8eleDtIb2QRPXnvLL5nriEKEQMY7zpaLKTfVqLzNYKfHAz2EYVWVKr/Vu1yXd6MSxmV2x9lXCBiBKY98pBBbWDok5Sg+3WSjJBsk2Xib5TLP5bvhN84WcQ3jFPXUgahBKYT1e+MoVtIDkFbfU2eFM1UjetcC0XNWnNzNvcO2hrCB8NNoeFjfvwzquu6fMU/xHTtRFBo5Wx2TeW9cZdz+eiblcxPKj9vtKll92Wz57O0bxia9M9lvHGYX8kkHZeMDKZsordPoIil/p9ZrZSfiL+hlTCOP94Wqv3bckOCR+o6z1GVlbuOt1rA7C1dmbyqBoNsAJ5lXgV5U/Ff15OtzDGS5WHlr9C9WWOu7eQBFMOUUWuDsgw+1ousRPr2YKtn1rZKCcmjAEWciSp29XH7z2R8=");
+        given(req.getParameter("Ecom_Token")).willReturn("81915571");
+        given(req.getParameter("Ecom_Backupcode")).willReturn("81915571");
         given(req.isRequestedSessionIdValid()).willReturn(true);
         return req;
     }
@@ -168,9 +171,9 @@ public class MockNIDP {
 
     public static HttpSession getHttpSession() {
         HttpSession session = mock(HttpSession.class);
-        // Spying does not work on an interface
-        // doReturn("0123456789").when( spy( HttpSession.class ) ).getId();
-        // when(spy( HttpSession.class ).getId()).thenReturn("0123456789");
+        when(session.getAttribute("number")).thenReturn("0612345678");
+        when(session.getAttribute("token")).thenReturn(null);
+        when(session.getAttribute("delay")).thenReturn(0);
         return session;
     }
 

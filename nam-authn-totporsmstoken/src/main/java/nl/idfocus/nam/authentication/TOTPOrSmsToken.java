@@ -81,15 +81,12 @@ public class TOTPOrSmsToken extends LocalAuthenticationClass
 	private NIDPPrincipal localPrincipal;
 	private final String sessionUser;
 
-	private static final String LAST_CHANGED_REVISION = "$LastChangedRevision: 81 $";
-	private final String revision;
+	private static final String PKGBUILD = TOTPOrSmsToken.class.getPackage().getImplementationVersion();
 
 	public TOTPOrSmsToken(Properties props, ArrayList<UserAuthority> stores) 
 	{
 		super(props, stores);
-		this.revision = LAST_CHANGED_REVISION.substring( LAST_CHANGED_REVISION.indexOf(':')+1, LAST_CHANGED_REVISION.lastIndexOf('$') ).trim();
-		logger.log( loglevel, "TOTP or SMS Token Authentication Class rev "+revision+" (c) IDFocus B.V. <info@idfocus.nl>" );
-		logger.log( loglevel, "Initializing TOTPOrSmsToken" );
+		logger.log( loglevel, "TOTP or SMS Token Authentication Class build "+PKGBUILD+" (c) IDFocus B.V. <info@idfocus.nl>" );
 		//
 		methodSwitchAttribute = props.getProperty( PROP_SWITCH_ATTR , DEF_SWITCH_ATTR );
 		debugMode       = Boolean.parseBoolean( props.getProperty( PROP_DEBUG, DEF_DEBUG ) );
@@ -97,7 +94,6 @@ public class TOTPOrSmsToken extends LocalAuthenticationClass
 		{
 			LogFormatter.setLoggerDebugMode(logger);
 		}
-		logger.log( dbglevel, "$Id: TOTPOrSmsToken.java 81 2017-02-07 12:28:10Z mvreijn $" );
 		// Create authenticators
 		logger.log( dbglevel, "Creating TOTP class: "+TOTPAuth.class.getName() );
 		final Properties totpProps = filterProperties(props, PREFIX_TOTP, PREFIX_SMST);

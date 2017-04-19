@@ -76,7 +76,12 @@ public class SmsToken extends LocalAuthenticationClass
 	 * By setting this property name on the class or method, the name of the token <br/>
 	 * input field may be altered from the default specified in {@link #DEF_INPUT_TOKEN}
 	 */
-	private static final String PROP_INPUT_TOKEN    = "inputToken";
+	private static final String PROP_INPUT_TOKEN     = "inputToken";
+	/**
+	 * By setting this property name on the class or method, the name of the backupcode <br/>
+	 * input field may be altered from the default specified in {@link #DEF_INPUT_BACKUP}	 * 
+	 */
+	private static final String PROP_INPUT_BACKUP    = "inputScratchcode";
 	/**
 	 * By setting this property name on the class or method, the name of the 'postpone' <br/>
 	 * input field may be altered from the default specified in {@link #DEF_INPUT_POSTPONE}
@@ -141,27 +146,41 @@ public class SmsToken extends LocalAuthenticationClass
 	 * By setting this property name on the class or method, the SMS send timeout <br/>
 	 * may be altered from the default specified in {@link #DEF_EXP_ATTRIBUTE}
 	 */
-	private static final String PROP_SMS_TIMEOUT    = "smsSendTimeout";	
+	private static final String		PROP_SMS_TIMEOUT	= "smsSendTimeout";
+	/**
+	 * By setting this property name on the class or method, the type of scratch codes to be used <br/>
+	 * may be altered from the default specified in {@link #DEF_SCRATCH_TYPE}. Valid values: 'none', 'totp', 'ldap'.
+	 */
+	private static final String		PROP_SCRATCH_TYPE	= "scratchCodeType";
+	/**
+	 * By setting this property name on the class or method, the ldap attribute for scratch codes to be used <br/>
+	 * may be altered from the default specified in {@link #DEF_SCRATCH_ATTRIBUTE}. 
+	 */
+	private static final String		PROP_SCRATCH_ATTRIBUTE	= "scratchCodeAttribute";
 	// Defaults
-	private static final String DEF_INPUT_TOKEN    = "Ecom_Token";
-	private static final String DEF_INPUT_POSTPONE = "Ecom_Postpone";
-	private static final String DEF_INPUT_NUMBER   = "Ecom_Number";
-	private static final String DEF_INPUT_RETRY    = "Ecom_Retry";
-	private static final String DEF_INPUT_JSP      = "smstoken";
-	private static final String DEF_TOKEN_LENGTH   = "8";
-	private static final String DEF_TOKEN_CHARSET  = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	private static final String DEF_SMS_PROVIDER   = MessageBird.class.getName();
-	private static final String DEF_SMS_ATTRIBUTE  = "mobile";
-	private static final String DEF_SMS_ALTATTR    = "";
-	private static final String DEF_SMS_TIMEOUT    = "10000";
-	private static final String DEF_EXP_COOKIE     = "idfsmsauth";
-	private static final String DEF_EXP_TIME       = "0";
-	private static final String DEF_EXP_ATTRIBUTE  = "description";
+	private static final String		DEF_INPUT_TOKEN			= "Ecom_Token";
+	private static final String		DEF_INPUT_BACKUP		= "Ecom_Backupcode";
+	private static final String		DEF_INPUT_POSTPONE		= "Ecom_Postpone";
+	private static final String		DEF_INPUT_NUMBER		= "Ecom_Number";
+	private static final String		DEF_INPUT_RETRY			= "Ecom_Retry";
+	private static final String		DEF_INPUT_JSP			= "smstoken";
+	private static final String		DEF_TOKEN_LENGTH		= "8";
+	private static final String		DEF_TOKEN_CHARSET		= "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private static final String		DEF_SMS_PROVIDER		= MessageBird.class.getName();
+	private static final String		DEF_SMS_ATTRIBUTE		= "mobile";
+	private static final String		DEF_SMS_ALTATTR			= "";
+	private static final String		DEF_SMS_TIMEOUT			= "10000";
+	private static final String		DEF_EXP_COOKIE			= "idfsmsauth";
+	private static final String		DEF_EXP_TIME			= "0";
+	private static final String		DEF_EXP_ATTRIBUTE		= "description";
+	private static final String		DEF_SCRATCH_TYPE		= "none";
+	private static final String		DEF_SCRATCH_ATTRIBUTE	= "l";
 	// Actual values
 	private final String valInputToken;
+	private final String valInputBackupcode;
 	private final String valInputPostpone;
-	private final String valInputNUMBER;
-	private final String valInputRETRY;
+	private final String valInputNumber;
+	private final String valInputRetry;
 	private final String valInputJSP;
 	private final int    valInputLENGTH;
 	private final String valInputCHARSET;
@@ -172,6 +191,8 @@ public class SmsToken extends LocalAuthenticationClass
 	private final String valExpCOOKIE;
 	private final String valExpATTRIBUTE;
 	private final int    valExpTIME;
+	private final String valScratchType;
+	private final String valScratchAttribute;
 	// Variables
 	private NIDPPrincipal localPrincipal;
 	private final String sessionUser;
@@ -180,8 +201,7 @@ public class SmsToken extends LocalAuthenticationClass
 	private SortedMap<String,String> attrNames;
 	private final boolean debugMode;
 
-	private static final String LAST_CHANGED_REVISION = "$LastChangedRevision: 85 $";
-	private final String revision;
+	private static final String PKGBUILD = SmsToken.class.getPackage().getImplementationVersion();
 
 	/**
 	 * The constructor is always called by the NIDP and all params are passed into it. 
@@ -192,15 +212,12 @@ public class SmsToken extends LocalAuthenticationClass
 	public SmsToken(Properties props, ArrayList<UserAuthority> stores) throws NIDPException 
 	{
 		super( props, stores );
-		this.revision = LAST_CHANGED_REVISION.substring( LAST_CHANGED_REVISION.indexOf(':')+1, LAST_CHANGED_REVISION.lastIndexOf('$') ).trim();
-		logger.log( Level.INFO, "SMS Token Authentication Class rev "+revision+" (c) IDFocus B.V. <info@idfocus.nl>" );
-		logger.log( Level.FINE, "Initializing SmsToken" );
+		logger.log( Level.INFO, "SMS Token Authentication Class build "+PKGBUILD+" (c) IDFocus B.V. <info@idfocus.nl>" );
 		// Determine debug setting
 		debugMode = Boolean.parseBoolean( props.getProperty(PROP_DEBUG, "false" ) );
 		if ( debugMode )
 		{
 			LogFormatter.setLoggerDebugMode(logger);
-			logger.log( Level.FINER, "$Id: SmsToken.java 85 2017-02-08 16:10:44Z mvreijn $" );
 			// Read setup properties DEBUG
 			Iterator<?> itr = props.keySet().iterator();
 			while ( itr.hasNext() )
@@ -210,10 +227,13 @@ public class SmsToken extends LocalAuthenticationClass
 			}
 		}
 		// Read known settings
-		valInputToken    = props.getProperty( PROP_INPUT_TOKEN   , DEF_INPUT_TOKEN );
+		valInputToken       = props.getProperty( PROP_INPUT_TOKEN      , DEF_INPUT_TOKEN );
+		valInputBackupcode  = props.getProperty( PROP_INPUT_BACKUP     , DEF_INPUT_BACKUP );
+		valScratchType      = props.getProperty( PROP_SCRATCH_TYPE     , DEF_SCRATCH_TYPE );
+		valScratchAttribute = props.getProperty( PROP_SCRATCH_ATTRIBUTE, DEF_SCRATCH_ATTRIBUTE );
 		valInputPostpone = props.getProperty( PROP_INPUT_POSTPONE, DEF_INPUT_POSTPONE );
-		valInputNUMBER   = props.getProperty( PROP_INPUT_NUMBER  , DEF_INPUT_NUMBER );
-		valInputRETRY    = props.getProperty( PROP_INPUT_RETRY   , DEF_INPUT_RETRY );
+		valInputNumber   = props.getProperty( PROP_INPUT_NUMBER  , DEF_INPUT_NUMBER );
+		valInputRetry    = props.getProperty( PROP_INPUT_RETRY   , DEF_INPUT_RETRY );
 		valInputJSP      = props.getProperty( PROP_INPUT_JSP     , DEF_INPUT_JSP );
 		valInputCHARSET  = props.getProperty( PROP_TOKEN_CHARSET , DEF_TOKEN_CHARSET );
 		valSmsPROVIDER   = props.getProperty( PROP_SMS_PROVIDER  , DEF_SMS_PROVIDER );		
@@ -317,10 +337,11 @@ public class SmsToken extends LocalAuthenticationClass
 		{
 			SmsMessage smsMsgObject = createMessageObjectFromSession();
 			String token = m_Request.getParameter( valInputToken );
+			String scratchcode = m_Request.getParameter( valInputBackupcode );
 			// Detect if retry was pressed
-			if ( m_Request.getParameter( valInputRETRY ) != null )
+			if ( m_Request.getParameter( valInputRetry ) != null )
 			{
-				smsMsgObject.setSelectedNumber( m_Request.getParameter( valInputNUMBER ) );
+				smsMsgObject.setSelectedNumber( m_Request.getParameter( valInputNumber ) );
 				logger.log( Level.INFO, "Retry was selected, sending a new code to "+smsMsgObject.getSelectedNumber() );
 				return sendTokenAndPromptForVerification(smsMsgObject);
 			}
@@ -328,14 +349,13 @@ public class SmsToken extends LocalAuthenticationClass
 			logger.log(Level.FINE, String.format("Checking sent code '%s' against received code '%s'.", smsMsgObject.getToken(), token));
 			if( smsMsgObject.validateToken( token ) )
 			{
-				logger.log(Level.FINE, String.format("Checking sent code '%s' against received code '%s'.", smsMsgObject.getToken(), token));
 				placeCookieIfDelayRequested( m_Request.getParameter( valInputPostpone ), smsMsgObject.getDelay() );
 				setPrincipal(localPrincipal);
 				return AUTHENTICATED;
 			}
-			else if (isValidScratchCode(token))
+			else if (scratchcode != null && isValidScratchCode(scratchcode))
 			{
-				logger.log(Level.FINE, String.format("Logged in using %s as a scratch code.", token));
+				logger.log(Level.FINE, "Logged in using {0} as a scratch code.", scratchcode);
 				setPrincipal(localPrincipal);
 				return AUTHENTICATED;				
 			}
@@ -351,6 +371,17 @@ public class SmsToken extends LocalAuthenticationClass
 
 	private boolean isValidScratchCode( String token )
 	{
+		logger.log(Level.FINE, "Trying {0} as a scratch code", token);
+		if(!token.isEmpty())
+			if ("totp".equals(valScratchType))
+				return validateTOTPScratchCode(token);
+			else if ("ldap".equals(valScratchType))
+				return validateLDAPScratchCode(token);
+		return false;
+	}
+
+	private boolean validateTOTPScratchCode(String token)
+	{
 		Properties totpProperties = new Properties(TOTPConstants.getDefaults());
 		totpProperties.putAll(m_Properties);
 		try
@@ -364,6 +395,18 @@ public class SmsToken extends LocalAuthenticationClass
 		}
 		catch (TOTPException e)
 		{
+			logger.log(Level.WARNING, "Exception checking TOTP scratch code: "+e.getMessage());
+		}
+		return false;		
+	}
+
+	private boolean validateLDAPScratchCode(String token)
+	{
+		List<String> values = getStringAttributeValues(localPrincipal, valScratchAttribute);
+		if (values.remove(token))
+		{
+			putStringAttributeValues(localPrincipal, valScratchAttribute, values.toArray(new String[values.size()]));
+			return true;
 		}
 		return false;
 	}
@@ -705,8 +748,56 @@ public class SmsToken extends LocalAuthenticationClass
 		{
 			return Integer.parseInt(value);
 		} catch (NumberFormatException e) {
-			logger.log(Level.WARNING, "Could not determine numeric value for '"+property+"', returning 0");
+			logger.log(Level.WARNING, "Could not determine numeric value for '{0}', returning 0", property);
 			return 0;
+		}
+	}
+
+	/**
+	 * Method to retrieve the set of string values of a given attribute of the given NIDP principal object. <br/>
+	 * @param princ the principal whose number to read
+	 * @return the complete list of attribute values
+	 */
+	private List<String> getStringAttributeValues( NIDPPrincipal princ, String attributeName )
+	{
+		List<String> result = new ArrayList<>();
+		try {
+			Attribute attribute = getLdapAttribute( princ, attributeName );
+			if ( attribute.size() > 0 )
+			{
+				logger.log(Level.FINEST, "{0} value{1} found for {2}.", new Object[] { attribute.size(), (attribute.size()>1?"s":""), attributeName });
+				NamingEnumeration<?> values = attribute.getAll();
+				while (values.hasMore())
+				{
+					result.add((String)values.next());
+				}
+			}
+			else
+			{
+				logger.log( Level.FINEST, "no values found for {0}.", attributeName);
+			}
+		} catch (NamingException e) {
+			logger.log( Level.FINEST, "NamingException getting values for {0}: {1}", new Object[] { attributeName, e.getExplanation() });
+		}
+		return result;
+	}
+
+	/**
+	 * Method to replace the set of string values of a given attribute of the given NIDP principal object. <br/>
+	 * @param princ the principal object to write to
+	 * @param attributeName the name of the LDAP attribute
+	 * @param values one or more string values
+	 */
+	private void putStringAttributeValues( NIDPPrincipal princ, String attributeName, String... values )
+	{
+		if (values != null)
+		{
+			UserAuthority ua = princ.getAuthority();
+			try {
+				ua.modifyAttributes(princ, new String[] { attributeName }, values);
+			} catch (NIDPException e) {
+				logger.log( Level.FINEST, "NIDPException writing values for {0}, error ID: {1}.", new Object[] { attributeName, e.getErrorID() });
+			}
 		}
 	}
 
@@ -721,7 +812,7 @@ public class SmsToken extends LocalAuthenticationClass
 			Attribute attribute = getLdapAttribute( princ, attributeName );
 			if ( attribute.size() > 0 )
 			{
-				logger.log( Level.FINEST, attribute.size()+" value"+(attribute.size()>1?"s":"")+" found"+(attribute.size()>1?", returning first one":""));
+				logger.log(Level.FINEST, "{0} value{1} found for {2}{3}", new Object[] { attribute.size(), (attribute.size()>1?"s":""), attributeName, (attribute.size()>1?", returning first one.":".") });
 				Object value = attribute.get();
 				if ( value != null && value instanceof String )
 				{
@@ -730,10 +821,10 @@ public class SmsToken extends LocalAuthenticationClass
 			}
 			else
 			{
-				logger.log( Level.FINEST, "no values found for "+attributeName);
+				logger.log( Level.FINEST, "no values found for {0}.", attributeName);
 			}
 		} catch (NamingException e) {
-			logger.log( Level.FINEST,  "NamingException getting values for "+attributeName+": "+e.getExplanation() );
+			logger.log( Level.FINEST, "NamingException getting values for {0}: {1}", new Object[] { attributeName, e.getExplanation() });
 		}
 		return "";
 	}

@@ -75,6 +75,44 @@ public class TestSmsToken
         assertEquals( LocalAuthenticationClass.SHOW_JSP, newClass.authenticate() );
 	}
 
+	@Test
+	public void testDoAuthenticateLDAPScratchCode() throws Exception
+	{
+		classProps.put("scratchCodeType", "ldap");
+		classProps.put("scratchCodeAttribute", "ldapScratchCode");
+        LocalAuthenticationClass newClass = rawDefinition.getInstance(m_UserStores, classProps);
+		classProps.put("Principal", MockNIDP.getPrincipal() );
+		// Ensure second try
+        newClass.initializeRequest(MockNIDP.getRequest(), MockNIDP.getResponse(), MockNIDP.getIdpSession(), MockNIDP.getSessionData(), false, "returnurl");
+        assertEquals( LocalAuthenticationClass.AUTHENTICATED, newClass.authenticate() );
+	}
+
+	@Test
+	public void testDoAuthenticateLDAPScratchCodeSameField() throws Exception
+	{
+		classProps.put("inputScratchcode", "Ecom_Token");
+		classProps.put("scratchCodeType", "ldap");
+		classProps.put("scratchCodeAttribute", "ldapScratchCode");
+        LocalAuthenticationClass newClass = rawDefinition.getInstance(m_UserStores, classProps);
+		classProps.put("Principal", MockNIDP.getPrincipal() );
+		// Ensure second try
+        newClass.initializeRequest(MockNIDP.getRequest(), MockNIDP.getResponse(), MockNIDP.getIdpSession(), MockNIDP.getSessionData(), false, "returnurl");
+        assertEquals( LocalAuthenticationClass.AUTHENTICATED, newClass.authenticate() );
+	}
+
+	@Test
+	public void testDoAuthenticateTOTPScratchCode() throws Exception
+	{
+		classProps.put("scratchCodeType", "totp");
+		classProps.put("storeType", "PWM");
+		classProps.put("SecretKeyAttribute", "totpSecretValuePam");
+        LocalAuthenticationClass newClass = rawDefinition.getInstance(m_UserStores, classProps);
+		classProps.put("Principal", MockNIDP.getPrincipal() );
+		// Ensure second try
+        newClass.initializeRequest(MockNIDP.getRequest(), MockNIDP.getResponse(), MockNIDP.getIdpSession(), MockNIDP.getSessionData(), false, "returnurl");
+        assertEquals( LocalAuthenticationClass.AUTHENTICATED, newClass.authenticate() );
+	}
+
 	private Properties getMessageBirdProperties()
 	{
 		Properties props = new Properties();

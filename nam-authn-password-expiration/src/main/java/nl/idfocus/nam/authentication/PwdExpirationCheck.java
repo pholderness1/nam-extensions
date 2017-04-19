@@ -113,8 +113,7 @@ public class PwdExpirationCheck extends LocalAuthenticationClass
 
 	private String nmasError = "";
 
-	private final String lastChangedRevision = "$LastChangedRevision: 58 $";
-	private final String revision;
+	private static final String PKGBUILD = PwdExpirationCheck.class.getPackage().getImplementationVersion();
 
 	/**
 	 * The default constructor for LocalAuthenticationClass
@@ -124,9 +123,7 @@ public class PwdExpirationCheck extends LocalAuthenticationClass
 	public PwdExpirationCheck( Properties props, ArrayList<UserAuthority> stores )
 	{
 		super( props, stores );
-		this.revision = lastChangedRevision.substring( lastChangedRevision.indexOf(":"), lastChangedRevision.lastIndexOf("$") ).trim();
-		logger.log( loglevel, "Password Expiration Authentication Class rev "+revision+" (c) IDFocus B.V. <info@idfocus.nl>" );
-		logger.log( Level.INFO , "$Id: PwdExpirationCheck.java 58 2016-02-03 09:19:36Z mvreijn $" );
+		logger.log( loglevel, "Password Expiration Authentication Class build "+PKGBUILD+" (c) IDFocus B.V. <info@idfocus.nl>" );
 		logger.log( loglevel, "Initializing Password Expiration Check.");
 		// Read setup properties
 		MODE = props.getProperty( MODE_ID, MODE_DEFAULT );

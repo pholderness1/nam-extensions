@@ -46,6 +46,7 @@ public class Authenticator
 	{
 		ISecretStore store;
 		String storeType = props.getProperty( TOTPConstants.PARAM_STORE_TYPE, TOTPConstants.STORE_NIDP );
+		logger.log(loglevel, "Using {0} secret store type", storeType);
 		if ( storeType.equals(TOTPConstants.STORE_EDIR) )
 			store = new EdirSecretStore();
 		else if ( storeType.equals(TOTPConstants.STORE_LDAP))
@@ -85,8 +86,7 @@ public class Authenticator
 		try
 		{
 			secretKey = this.secretStore.readSecretFromStore(princ);
-			scratchCodes = this.secretStore.readScratchCodesFromStore(princ);
-			logger.log(dbglevel, "Retrieved key value and scratch codes from secretStore.");
+			logger.log(dbglevel, "Retrieved key value from secretStore.");
 			return secretKey;
 		} catch (TOTPException e) {
 			throw new TOTPException("Not registered");
@@ -215,24 +215,25 @@ public class Authenticator
 
 	public void persist() throws TOTPException
 	{
-		if( this.scratchCodes != null )
-		{
-			this.secretStore.writeScratchCodesToStore(princ, scratchCodes.toArray(new Integer[scratchCodes.size()]));
-			logger.log(dbglevel, "Successfully saved scratch codes to secretStore." );
-		}
 		if ( this.secretKey != null )
 		{
 			this.secretStore.writeSecretToStore( princ, secretKey );
 			logger.log(dbglevel, "Successfully saved key to secretStore." );
 		}
-		else
-			throw new TOTPException("Persistence failed: secretkey null");
+		if( this.scratchCodes != null )
+		{
+			this.secretStore.writeScratchCodesToStore(princ, scratchCodes.toArray(new Integer[scratchCodes.size()]));
+			logger.log(dbglevel, "Successfully saved scratch codes to secretStore." );
+		}
 	}
 
-	public boolean validateScratchCode(Integer scratchCode)
+	public boolean validateScratchCode(Integer scratchCode) throws TOTPException
 	{
+		if (scratchCodes == null)
+			scratchCodes = this.secretStore.readScratchCodesFromStore(princ);
 		if ( scratchCodes != null )
 		{
+			logger.log(Level.FINE, "Checking {0,number,########} against a retrieved list of {1} possible scratch codes", new Object[] { scratchCode, scratchCodes.size() });
 			return scratchCodes.remove(scratchCode);
 		}
 		return false;

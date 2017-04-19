@@ -76,10 +76,12 @@ public class IDPRedirect extends LocalAuthenticationClass
 	private String				cancelPage;
 	private boolean				debugMode;
 
+	private static final String PKGBUILD = IDPRedirect.class.getPackage().getImplementationVersion();
+
 	public IDPRedirect(Properties props, ArrayList<UserAuthority> stores)
 	{
 		super(props, stores);
-		logger.log(Level.INFO, "Instantiating IDPRedirect authentication class.");
+		logger.log( Level.INFO, "IDP Redirect Authentication Class build "+PKGBUILD+" (c) IDFocus B.V. <info@idfocus.nl>" );
 		idpID = props.getProperty(PROPERTY_IDP_ID);
 		protocolHandler = props.getProperty(PROPERTY_IDP_HANDLER, "saml2");
 		debugMode = Boolean.parseBoolean(props.getProperty(PROPERTY_DEBUG, "false"));

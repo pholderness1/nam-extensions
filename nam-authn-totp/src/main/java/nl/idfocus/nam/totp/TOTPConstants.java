@@ -12,6 +12,7 @@ public class TOTPConstants
 	public static final String PARAM_IMAGE_SIZE   = "imageSize";
 
 	public final static String PARAM_INPUT_TOKEN    = "inputToken";
+	public final static String PARAM_INPUT_BACKUP   = "inputScratchcode";
 	public final static String PARAM_INPUT_REGISTER = "inputRegister";
 	public final static String PARAM_INPUT_JSP_REG  = "JSP_REG";
 	public final static String PARAM_INPUT_JSP_AUT  = "JSP_AUT";

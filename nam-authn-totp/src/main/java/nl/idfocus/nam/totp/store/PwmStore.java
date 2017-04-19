@@ -21,6 +21,10 @@ public class PwmStore implements ISecretStore
 	public static final String	PROP_STORAGE_FORMAT_NAME	= "SecretKeyFormat";
 
 	public static final String	FORMAT_JSON					= "JSON";
+	/**
+	 * Use the format from google's TOTP PAM module
+	 * @see https://github.com/google/google-authenticator-libpam/blob/master/FILEFORMAT
+	 */
 	public static final String	FORMAT_PAM					= "PAM";
 
 	private static final String	LINE_END					= "\\r\\n";
@@ -35,7 +39,6 @@ public class PwmStore implements ISecretStore
 	{
 		storageAttribute = props.getProperty(PROP_STORAGE_ATTRIBUTE_NAME, "description");
 		storageFormat = props.getProperty(PROP_STORAGE_FORMAT_NAME, FORMAT_PAM);
-
 	}
 
 	@Override

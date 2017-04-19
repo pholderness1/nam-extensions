@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -106,23 +105,17 @@ public class ChainedAuth extends LocalAuthenticationClass
 	private boolean callNewClass;
 	private boolean firstCall;
 
-	private static final String LAST_CHANGED_REVISION = "$LastChangedRevision: 81 $";
-	private final String revision;
+	private static final String PKGBUILD = ChainedAuth.class.getPackage().getImplementationVersion();
 
 	public ChainedAuth(Properties props, ArrayList<UserAuthority> stores) 
 	{
 		super(props, stores);
-		this.revision = LAST_CHANGED_REVISION.substring( LAST_CHANGED_REVISION.indexOf(':')+1, LAST_CHANGED_REVISION.lastIndexOf('$') ).trim();
-		logger.log( loglevel, "Chained Authentication Class rev "+revision+" (c) IDFocus B.V. <info@idfocus.nl>" );
-		logger.log( loglevel, "Initializing ChainedAuth" );
+		logger.log( loglevel, "Chained Authentication Class build "+PKGBUILD+" (c) IDFocus B.V. <info@idfocus.nl>" );
 		// Determine debug setting
 		debugMode = Boolean.parseBoolean( props.getProperty( PROP_DEBUG, "false" ) );
 		if ( debugMode )
 		{
-			for ( Handler hd : logger.getHandlers() )
-				hd.setLevel( dbglevel );
-			logger.setLevel( dbglevel );
-			logger.log( dbglevel, "$Id: ChainedAuth.java 81 2017-02-07 12:28:10Z mvreijn $" );
+			LogFormatter.setLoggerDebugMode(logger);
 		}
 		// Process settings
 		List<String> authNames = new ArrayList<>();
