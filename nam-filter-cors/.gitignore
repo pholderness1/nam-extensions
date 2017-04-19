@@ -1,1 +1,9 @@
 /target/
+
+# Apple Finder
+.DS_Store
+
+# Eclipse settings
+.settings
+.project
+.classpath
