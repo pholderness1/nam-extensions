@@ -64,6 +64,19 @@ public class TestLdapStore
 	}
 
 	@Test
+	public void testLdapStoreWriteCodes() throws Exception
+	{
+		/*
+		 * Codes: [78636072, 81915571, 52984984, 34278800, 88440605]
+		 */
+		Integer[] codes = new Integer[] { 78636072, 81915571, 52984984, 34278800, 88440605 };
+		ISecretStore store = new LdapStore();
+		store.init( props );
+		NIDPPrincipal princ = MockNIDP.getPrincipal();
+		store.writeScratchCodesToStore(princ, codes);
+	}
+
+	@Test
 	public void testLdapStoreReadKey() throws Exception
 	{
 		/*
@@ -91,5 +104,18 @@ public class TestLdapStore
 		{
 			assertTrue(e.getMessage().startsWith("failed to read"));
 		}
+	}
+
+	@Test
+	public void testLdapStoreWriteKey() throws Exception
+	{
+		/*
+		 * Key: TTLRB6ULNFYBTUZB
+		 */
+		String key = "TTLRB6ULNFYBTUZB";
+		ISecretStore store = new LdapStore();
+		store.init( props );
+		NIDPPrincipal princ = MockNIDP.getPrincipal();
+		store.writeSecretToStore(princ, key);
 	}
 }
