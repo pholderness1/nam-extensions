@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
 /**
- * @author Greg Baler
+ * @author Sebastiaan Veldhuisen
  */
 public class LocaleOverrideRequest extends HttpServletRequestWrapper {
 
@@ -30,8 +30,7 @@ public class LocaleOverrideRequest extends HttpServletRequestWrapper {
 	public Enumeration getLocales() {
 		if (locale == null) {
 			return super.getLocales();
-		}
-		else {
+		} else {
 			List<Locale> locales = Collections.list(super.getLocales());
 
 			if (locales.contains(locale)) {

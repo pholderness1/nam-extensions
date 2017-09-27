@@ -34,116 +34,114 @@ public class LocaleChangeFilter implements Filter {
 	public static final String DEFAULT_COOKIE_NAME = "locale";
 
 	/**
-	 * Default locale querystring parameter, if none is specified in filter's InitParams
+	 * Default locale querystring parameter, if none is specified in filter's
+	 * InitParams
 	 */
 	public static final String DEFAULT_LOCALE_QUERY_STRING = "locale";
-	
+
 	public static final String COOKIE_NAME_INITPARAM_KEY = "cookieName";
 	public static final String COOKIE_DOMAIN_INITPARAM_KEY = "cookieDomain";
 	public static final String COOKIE_PATH_INITPARAM_KEY = "cookiePath";
 	public static final String COOKIE_MAX_AGE_INITPARAM_KEY = "cookieMaxAge";
 	public static final String COOKIE_SECURE_INITPARAM_KEY = "cookieSecure";
 	public static final String LOCALE_QUERY_STRING_INITPARAM_KEY = "localeQuerystringParam";
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(LocaleChangeFilter.class);
 
 	private String localeQuerystringParam;
-	
+
 	private String cookieName;
-	
+
 	private String cookieDomain;
-	
+
 	private String cookiePath;
-	
+
 	private Integer cookieMaxAge;
-	
+
 	private boolean cookieSecure;
 
 	/**
 	 * Default constructor.
 	 */
-	public LocaleChangeFilter()
-	{
-		logger.info( "Instantiating Locale Change Filter");
-	}	
-	
+	public LocaleChangeFilter() {
+		logger.info("Instantiating Locale Change Filter");
+	}
+
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
-	public void init(FilterConfig filterConfig)
-	{	
+	public void init(FilterConfig filterConfig) {
 		try {
-    		logger.info( "Initializing Locale Change Filter " + getClass().getPackage().getImplementationVersion());
-    		
-	    	// determine Filter values (filterConfig or default)
-    		this.localeQuerystringParam = getParameterValue(filterConfig, LOCALE_QUERY_STRING_INITPARAM_KEY, DEFAULT_LOCALE_QUERY_STRING);
-    		this.cookieName = getParameterValue(filterConfig, COOKIE_NAME_INITPARAM_KEY, DEFAULT_COOKIE_NAME);
-	        this.cookieDomain = getParameterValue(filterConfig, COOKIE_DOMAIN_INITPARAM_KEY);
-	        this.cookiePath = getParameterValue(filterConfig, COOKIE_PATH_INITPARAM_KEY);
-	        this.cookieMaxAge = getParameterIntegerValue(filterConfig, COOKIE_MAX_AGE_INITPARAM_KEY);
-	        this.cookieSecure = getParameterBooleanValue(filterConfig, COOKIE_SECURE_INITPARAM_KEY);
-    	} catch (Exception e) {
-    		logger.error("Unable to read Filter Configuration");
-    	}
+			logger.info("Initializing Locale Change Filter " + getClass().getPackage().getImplementationVersion());
+
+			// determine Filter values (filterConfig or default)
+			this.localeQuerystringParam = getParameterValue(filterConfig, LOCALE_QUERY_STRING_INITPARAM_KEY,
+					DEFAULT_LOCALE_QUERY_STRING);
+			this.cookieName = getParameterValue(filterConfig, COOKIE_NAME_INITPARAM_KEY, DEFAULT_COOKIE_NAME);
+			this.cookieDomain = getParameterValue(filterConfig, COOKIE_DOMAIN_INITPARAM_KEY);
+			this.cookiePath = getParameterValue(filterConfig, COOKIE_PATH_INITPARAM_KEY);
+			this.cookieMaxAge = getParameterIntegerValue(filterConfig, COOKIE_MAX_AGE_INITPARAM_KEY);
+			this.cookieSecure = getParameterBooleanValue(filterConfig, COOKIE_SECURE_INITPARAM_KEY);
+		} catch (Exception e) {
+			logger.error("Unable to read Filter Configuration");
+		}
 	}
 
-    private String getParameterValue(FilterConfig filterConfig, String paramName) 
-    {
-    	String value = filterConfig.getInitParameter(paramName);
-    	logger.info("Read string parameter {} = {}", paramName, value);
-    	
-    	return value;
-    }
+	private String getParameterValue(FilterConfig filterConfig, String paramName) {
+		String value = filterConfig.getInitParameter(paramName);
+		logger.info("Read string parameter {} = {}", paramName, value);
 
-    private String getParameterValue(FilterConfig filterConfig, String paramName, String defaultValue) 
-    {
-        String value = filterConfig.getInitParameter(paramName);
-        if (StringUtils.isBlank(value)) {
-            value = defaultValue;
-        }
-        logger.info("Read string parameter {} = {}", paramName, value);
-        
-        return value;
-    }
+		return value;
+	}
 
-    private boolean getParameterBooleanValue(FilterConfig filterConfig, String paramName) 
-    {
-    	String value = filterConfig.getInitParameter(paramName);
-    	logger.info("Read boolean parameter {} = {}", paramName, value);
-        return "true".equalsIgnoreCase(value);
-    }
+	private String getParameterValue(FilterConfig filterConfig, String paramName, String defaultValue) {
+		String value = filterConfig.getInitParameter(paramName);
+		if (StringUtils.isBlank(value)) {
+			value = defaultValue;
+		}
+		logger.info("Read string parameter {} = {}", paramName, value);
 
-    private Integer getParameterIntegerValue(FilterConfig filterConfig, String paramName) 
-    {
-        String value = filterConfig.getInitParameter(paramName);
-        Integer valueInt;
-        try {
-        	valueInt = Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-        	valueInt = null;
-        }
-        logger.info("Read integer parameter {} = {}", paramName, valueInt);
-        
-        return valueInt;
-    }
-    
+		return value;
+	}
+
+	private boolean getParameterBooleanValue(FilterConfig filterConfig, String paramName) {
+		String value = filterConfig.getInitParameter(paramName);
+		logger.info("Read boolean parameter {} = {}", paramName, value);
+		return "true".equalsIgnoreCase(value);
+	}
+
+	private Integer getParameterIntegerValue(FilterConfig filterConfig, String paramName) {
+		String value = filterConfig.getInitParameter(paramName);
+		Integer valueInt;
+		try {
+			valueInt = Integer.parseInt(value);
+		} catch (NumberFormatException e) {
+			valueInt = null;
+		}
+		logger.info("Read integer parameter {} = {}", paramName, valueInt);
+
+		return valueInt;
+	}
+
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-	    final HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-	    final HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+			throws IOException, ServletException {
+		final HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+		final HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
 
-	    // determine preferred locale
-	    final Locale acceptHeaderLocale = findAcceptHeaderLocale(httpServletRequest);
-	    final Locale cookieLocale = findCookieLocale(httpServletRequest);
+		// determine preferred locale
+		final Locale acceptHeaderLocale = findAcceptHeaderLocale(httpServletRequest);
+		final Locale cookieLocale = findCookieLocale(httpServletRequest);
 		final Locale querystringLocale = findQuerystringLocale(httpServletRequest);
 		final Locale systemLocale = findSystemLocale();
-		final Locale locale = determineOverridingLocale(acceptHeaderLocale, cookieLocale, querystringLocale, systemLocale);
+		final Locale locale = determineOverridingLocale(acceptHeaderLocale, cookieLocale, querystringLocale,
+				systemLocale);
 
-		// bake a cookie :-)		
+		// bake a cookie :-)
 		bakeLocaleCookie(httpServletRequest, httpServletResponse, locale);
-		
+
 		// pass the request along the filter chain
 		filterChain.doFilter(new LocaleOverrideRequest(httpServletRequest, locale), servletResponse);
 	}
@@ -157,26 +155,26 @@ public class LocaleChangeFilter implements Filter {
 
 	protected void bakeLocaleCookie(HttpServletRequest request, HttpServletResponse response, Locale locale) {
 		Cookie cookie = CookieUtils.getCookie(request, cookieName);
-		
+
 		if (cookie == null) {
 			cookie = CookieUtils.createCookie(cookieName, locale.toString(), cookieDomain, cookiePath);
-		}
-		else {
+		} else {
 			cookie.setValue(locale.toString());
 		}
-		
+
 		CookieUtils.addCookie(response, cookie, cookieMaxAge, cookieSecure);
 	}
 
-	protected Locale determineOverridingLocale(Locale acceptHeaderLocale, Locale cookieLocale, Locale querystringLocale, Locale systemLocale) {
+	protected Locale determineOverridingLocale(Locale acceptHeaderLocale, Locale cookieLocale, Locale querystringLocale,
+			Locale systemLocale) {
 		if (querystringLocale != null) {
 			return querystringLocale;
 		}
-		
+
 		if (cookieLocale != null) {
 			return cookieLocale;
 		}
-		
+
 		if (acceptHeaderLocale != null) {
 			return acceptHeaderLocale;
 		}
@@ -190,7 +188,7 @@ public class LocaleChangeFilter implements Filter {
 
 	protected Locale findCookieLocale(HttpServletRequest httpServletRequest) {
 		final Cookie cookie = CookieUtils.getCookie(httpServletRequest, cookieName);
-		
+
 		if (cookie != null) {
 			final String value = cookie.getValue();
 			return stringToLocale(value);
@@ -212,13 +210,12 @@ public class LocaleChangeFilter implements Filter {
 		if (string != null) {
 			try {
 				return LocaleUtils.toLocale(string);
-			}
-			catch (final IllegalArgumentException illegalArgumentException) {
+			} catch (final IllegalArgumentException illegalArgumentException) {
 				logger.warn("Invalid locale string: {}; returning null", string);
 			}
 		}
 
 		return null;
 	}
-	
+
 }
