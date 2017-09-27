@@ -25,3 +25,4 @@ In this project you will find a set of authentication classes for NetIQ Access M
 * **Playground**: stuff to learn from with lots of explanation (hopefully)
 * **Content Security Policy**: filter that adds Content Security Policy Header to the IDP response.
 * **CORS Filter**: filter that adds wildcard support to the default tomcat CORS filter.
+* **Locale Override Filter**: filter that allows for changing the current locale on every HTTP Servlet request via a Query Parameter or Cookie.
