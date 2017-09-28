@@ -12,6 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.LocaleUtils;
 import org.apache.commons.lang.StringUtils;
@@ -47,6 +48,8 @@ public class LocaleChangeFilter implements Filter {
 	public static final String LOCALE_QUERY_STRING_INITPARAM_KEY = "localeQuerystringParam";
 
 	private static final Logger logger = LoggerFactory.getLogger(LocaleChangeFilter.class);
+
+	private static final String ATTR_TAGGED = "localetagged";
 
 	private String localeQuerystringParam;
 
@@ -143,6 +146,7 @@ public class LocaleChangeFilter implements Filter {
 		bakeLocaleCookie(httpServletRequest, httpServletResponse, locale);
 
 		// pass the request along the filter chain
+		servletResponse.setLocale(locale);
 		filterChain.doFilter(new LocaleOverrideRequest(httpServletRequest, locale), servletResponse);
 	}
 
@@ -154,15 +158,23 @@ public class LocaleChangeFilter implements Filter {
 	}
 
 	protected void bakeLocaleCookie(HttpServletRequest request, HttpServletResponse response, Locale locale) {
+		HttpSession session = ((HttpServletRequest) request).getSession();
 		Cookie cookie = CookieUtils.getCookie(request, cookieName);
 
 		if (cookie == null) {
+			logger.debug("[bakeLocaleCookie] Create new cookie: {}, {}, {}, {}", cookieName, locale.toString(), cookieDomain, cookiePath);
 			cookie = CookieUtils.createCookie(cookieName, locale.toString(), cookieDomain, cookiePath);
-		} else {
+			session.setAttribute(ATTR_TAGGED, "true");
+		} else if (!isTagged(session)) {
+			logger.debug("[bakeLocaleCookie] Not tagged, updating existing cookie to: {}, {}, {}, {}", cookieName, locale.toString(), cookieDomain, cookiePath);
+			cookie.setValue(locale.toString());
+			session.setAttribute(ATTR_TAGGED, "true");
+		} else if (locale.toString() != null && cookie.getValue() != null && !locale.toString().equals(cookie.getValue())) {
+			logger.debug("[bakeLocaleCookie] Locale switch, updating existing cookie to: {}, {}, {}, {}", cookieName, locale.toString(), cookieDomain, cookiePath);
 			cookie.setValue(locale.toString());
 		}
 
-		CookieUtils.addCookie(response, cookie, cookieMaxAge, cookieSecure);
+		CookieUtils.addCookie(response, cookie, cookieMaxAge, cookieSecure, cookieDomain, cookiePath);
 	}
 
 	protected Locale determineOverridingLocale(Locale acceptHeaderLocale, Locale cookieLocale, Locale querystringLocale,
@@ -216,6 +228,12 @@ public class LocaleChangeFilter implements Filter {
 		}
 
 		return null;
+	}
+
+	private boolean isTagged(HttpSession session) {
+		if (session.getAttribute(ATTR_TAGGED) != null)
+			return true;
+		return false;
 	}
 
 }
