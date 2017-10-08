@@ -45,6 +45,7 @@ public class LocaleChangeFilter implements Filter {
 	public static final String COOKIE_PATH_INITPARAM_KEY = "cookiePath";
 	public static final String COOKIE_MAX_AGE_INITPARAM_KEY = "cookieMaxAge";
 	public static final String COOKIE_SECURE_INITPARAM_KEY = "cookieSecure";
+	public static final String COOKIE_HTTPONLY_INITPARAM_KEY = "cookieHttpOnly";
 	public static final String LOCALE_QUERY_STRING_INITPARAM_KEY = "localeQuerystringParam";
 
 	private static final Logger logger = LoggerFactory.getLogger(LocaleChangeFilter.class);
@@ -62,6 +63,8 @@ public class LocaleChangeFilter implements Filter {
 	private Integer cookieMaxAge;
 
 	private boolean cookieSecure;
+
+	private boolean cookieHttpOnly;
 
 	/**
 	 * Default constructor.
@@ -85,6 +88,7 @@ public class LocaleChangeFilter implements Filter {
 			this.cookiePath = getParameterValue(filterConfig, COOKIE_PATH_INITPARAM_KEY);
 			this.cookieMaxAge = getParameterIntegerValue(filterConfig, COOKIE_MAX_AGE_INITPARAM_KEY);
 			this.cookieSecure = getParameterBooleanValue(filterConfig, COOKIE_SECURE_INITPARAM_KEY);
+			this.cookieHttpOnly = getParameterBooleanValue(filterConfig, COOKIE_HTTPONLY_INITPARAM_KEY);
 		} catch (Exception e) {
 			logger.error("Unable to read Filter Configuration");
 		}
@@ -146,7 +150,6 @@ public class LocaleChangeFilter implements Filter {
 		bakeLocaleCookie(httpServletRequest, httpServletResponse, locale);
 
 		// pass the request along the filter chain
-		servletResponse.setLocale(locale);
 		filterChain.doFilter(new LocaleOverrideRequest(httpServletRequest, locale), servletResponse);
 	}
 
@@ -162,36 +165,44 @@ public class LocaleChangeFilter implements Filter {
 		Cookie cookie = CookieUtils.getCookie(request, cookieName);
 
 		if (cookie == null) {
-			logger.debug("[bakeLocaleCookie] Create new cookie: {}, {}, {}, {}", cookieName, locale.toString(), cookieDomain, cookiePath);
+			logger.debug("[bakeLocaleCookie] Create new cookie: {}, {}, {}, {}", cookieName, locale.toString(),
+					cookieDomain, cookiePath);
 			cookie = CookieUtils.createCookie(cookieName, locale.toString(), cookieDomain, cookiePath);
 			session.setAttribute(ATTR_TAGGED, "true");
 		} else if (!isTagged(session)) {
-			logger.debug("[bakeLocaleCookie] Not tagged, updating existing cookie to: {}, {}, {}, {}", cookieName, locale.toString(), cookieDomain, cookiePath);
+			logger.debug("[bakeLocaleCookie] Not tagged, updating existing cookie to: {}, {}, {}, {}", cookieName,
+					locale.toString(), cookieDomain, cookiePath);
 			cookie.setValue(locale.toString());
 			session.setAttribute(ATTR_TAGGED, "true");
-		} else if (locale.toString() != null && cookie.getValue() != null && !locale.toString().equals(cookie.getValue())) {
-			logger.debug("[bakeLocaleCookie] Locale switch, updating existing cookie to: {}, {}, {}, {}", cookieName, locale.toString(), cookieDomain, cookiePath);
+		} else if (locale.toString() != null && cookie.getValue() != null
+				&& !locale.toString().equals(cookie.getValue())) {
+			logger.debug("[bakeLocaleCookie] Locale switch, updating existing cookie to: {}, {}, {}, {}", cookieName,
+					locale.toString(), cookieDomain, cookiePath);
 			cookie.setValue(locale.toString());
 		}
 
-		CookieUtils.addCookie(response, cookie, cookieMaxAge, cookieSecure, cookieDomain, cookiePath);
+		CookieUtils.addCookie(response, cookie, cookieMaxAge, cookieSecure, cookieHttpOnly, cookieDomain, cookiePath);
 	}
 
 	protected Locale determineOverridingLocale(Locale acceptHeaderLocale, Locale cookieLocale, Locale querystringLocale,
 			Locale systemLocale) {
 		if (querystringLocale != null) {
-			return querystringLocale;
+			logger.info("[determineOverridingLocale] selected querystringLocale: {}", querystringLocale.getLanguage() );
+			return new Locale(querystringLocale.getLanguage());
 		}
 
 		if (cookieLocale != null) {
-			return cookieLocale;
+			logger.info("[determineOverridingLocale] selected cookieLocale: {}", cookieLocale.getLanguage() );
+			return new Locale(cookieLocale.getLanguage());
 		}
 
 		if (acceptHeaderLocale != null) {
-			return acceptHeaderLocale;
+			logger.info("[determineOverridingLocale] selected acceptHeaderLocale: {}",acceptHeaderLocale.getLanguage() );
+			return new Locale(acceptHeaderLocale.getLanguage());
 		}
-
-		return systemLocale;
+		
+		logger.info("[determineOverridingLocale] selected systemLocale: {}",systemLocale.getLanguage() );
+		return new Locale(systemLocale.getLanguage());
 	}
 
 	protected Locale findAcceptHeaderLocale(HttpServletRequest request) {
