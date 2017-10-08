@@ -11,7 +11,7 @@ public abstract class CookieUtils {
 
 	public static final String DEFAULT_COOKIE_PATH = "/";
 
-	public static void addCookie(HttpServletResponse response, Cookie cookie, Integer maxAge, Boolean secure,
+	public static void addCookie(HttpServletResponse response, Cookie cookie, Integer maxAge, Boolean secure, Boolean httpOnly,
 			String domain, String path) {
 		if (maxAge != null) {
 			cookie.setMaxAge(maxAge);
@@ -19,6 +19,10 @@ public abstract class CookieUtils {
 
 		if (secure != null) {
 			cookie.setSecure(secure);
+		}
+
+		if (httpOnly != null) {
+			cookie.setHttpOnly(httpOnly);
 		}
 
 		if (domain != null) {
