@@ -187,21 +187,21 @@ public class LocaleChangeFilter implements Filter {
 	protected Locale determineOverridingLocale(Locale acceptHeaderLocale, Locale cookieLocale, Locale querystringLocale,
 			Locale systemLocale) {
 		if (querystringLocale != null) {
-			logger.info("[determineOverridingLocale] selected querystringLocale: {}", querystringLocale.getLanguage() );
+			logger.debug("[determineOverridingLocale] selected querystringLocale: {}", querystringLocale.getLanguage() );
 			return new Locale(querystringLocale.getLanguage());
 		}
 
 		if (cookieLocale != null) {
-			logger.info("[determineOverridingLocale] selected cookieLocale: {}", cookieLocale.getLanguage() );
+			logger.debug("[determineOverridingLocale] selected cookieLocale: {}", cookieLocale.getLanguage() );
 			return new Locale(cookieLocale.getLanguage());
 		}
 
 		if (acceptHeaderLocale != null) {
-			logger.info("[determineOverridingLocale] selected acceptHeaderLocale: {}",acceptHeaderLocale.getLanguage() );
+			logger.debug("[determineOverridingLocale] selected acceptHeaderLocale: {}",acceptHeaderLocale.getLanguage() );
 			return new Locale(acceptHeaderLocale.getLanguage());
 		}
 		
-		logger.info("[determineOverridingLocale] selected systemLocale: {}",systemLocale.getLanguage() );
+		logger.debug("[determineOverridingLocale] selected systemLocale: {}",systemLocale.getLanguage() );
 		return new Locale(systemLocale.getLanguage());
 	}
 
