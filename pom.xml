@@ -18,11 +18,12 @@
 		<module>nam-authn-contract-dependency</module>
 		<module>nam-authn-chain</module>
 		<module>nam-authn-krb-fallback</module>
+		<module>nam-authn-u2f</module>
 		<module>nam-authn-x509</module>
 		<module>nam-playground</module>
 		<module>nam-filter-csp</module>
 		<module>nam-filter-cors</module>
-		<module>nam-authn-u2f</module>
+		<module>nam-filter-locale</module>
 	</modules>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
