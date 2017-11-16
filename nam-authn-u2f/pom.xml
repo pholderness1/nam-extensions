@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>nl.idfocus.nam</groupId>
+		<artifactId>nam-parent</artifactId>
+		<version>1.0.2-SNAPSHOT</version>
+	</parent>
+	<artifactId>nam-authn-u2f</artifactId>
+	<name>NAM U2F Authentication Class</name>
+	<description>Perform U2F Authentication in NAM using e.g. Yubikey</description>
+	<dependencies>
+		<dependency>
+			<groupId>com.yubico</groupId>
+			<artifactId>u2flib-server-core</artifactId>
+			<version>0.18.1</version>
+		</dependency>
+		<dependency>
+			<groupId>nl.idfocus.nam</groupId>
+			<artifactId>nam-util</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.netiq.nam</groupId>
+			<artifactId>nidp</artifactId>
+			<version>${nam.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.netiq.nam</groupId>
+			<artifactId>common</artifactId>
+			<version>${nam.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Test dependencies -->
+		<dependency>
+			<groupId>nl.idfocus.nam</groupId>
+			<artifactId>nam-util</artifactId>
+			<version>${project.parent.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+			<version>140</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!-- Runtime dependency (available on idp), but needed for tests -->
+			<groupId>com.netiq.nam</groupId>
+			<artifactId>nxpe</artifactId>
+			<version>${nam.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!-- Runtime dependency (available on idp), but needed for tests -->
+			<groupId>com.netiq.nam</groupId>
+			<artifactId>jcc</artifactId>
+			<version>${nam.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!-- Runtime dependency (available on idp), but needed for tests -->
+			<groupId>org.jgroups</groupId>
+			<artifactId>jgroups</artifactId>
+			<version>3.6.9.Final</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<properties>
+		<nam.version>4.2.2</nam.version>
+		<servlet.version>3.0.1</servlet.version>
+		<junit.version>4.11</junit.version>
+		<mockito.version>2.3.4</mockito.version>
+	</properties>
+</project>

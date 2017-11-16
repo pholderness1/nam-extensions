@@ -22,6 +22,7 @@
 		<module>nam-playground</module>
 		<module>nam-filter-csp</module>
 		<module>nam-filter-cors</module>
+		<module>nam-authn-u2f</module>
 	</modules>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
