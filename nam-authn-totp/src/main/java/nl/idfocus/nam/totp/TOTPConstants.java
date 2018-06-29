@@ -4,26 +4,27 @@ import java.util.Properties;
 
 public class TOTPConstants 
 {
-	public final static String PARAM_WINDOW_SIZE  = "windowSize";
-	public final static String PARAM_KEY_SIZE     = "keySize";
-	public final static String PARAM_SCRATCH      = "scratchCodes";
-	public final static String PARAM_SCRATCH_SIZE = "scratchCodeSize";
-	public final static String PARAM_STORE_TYPE   = "storeType";
-	public static final String PARAM_IMAGE_SIZE   = "imageSize";
+	public static final String PARAM_WINDOW_SIZE  = "windowSize";
+	public static final String PARAM_KEY_SIZE     = "keySize";
+	public static final String PARAM_SCRATCH      = "scratchCodes";
+	public static final String PARAM_SCRATCH_SIZE = "scratchCodeSize";
+	public static final String PARAM_STORE_TYPE   = "storeType";
+    public static final String PARAM_IMAGE_SIZE   = "imageSize";
+    public static final String PARAM_PBE_KEY      = "pbeKey";
 
-	public final static String PARAM_INPUT_TOKEN    = "inputToken";
-	public final static String PARAM_INPUT_BACKUP   = "inputScratchcode";
-	public final static String PARAM_INPUT_REGISTER = "inputRegister";
-	public final static String PARAM_INPUT_JSP_REG  = "JSP_REG";
-	public final static String PARAM_INPUT_JSP_AUT  = "JSP_AUT";
-	public final static String PARAM_INPUT_POSTPONE = "inputPostpone";
-	public final static String PARAM_ISSUER_NAME    = "issuerName";
-	public final static String PARAM_USER_NAME      = "useUserName";
-	public final static String PARAM_USER_NAME_ATTR = "userNameAttribute";
-	public final static String PARAM_REENROLL_ATTR  = "reEnrollmentAttribute";
-	public final static String PARAM_EXP_COOKIE     = "expirationCookie";
-	public final static String PARAM_EXP_ATTRIBUTE  = "expirationAttribute";
-	public final static String PARAM_EXP_TIME       = "expirationTime";
+	public static final String PARAM_INPUT_TOKEN    = "inputToken";
+	public static final String PARAM_INPUT_BACKUP   = "inputScratchcode";
+	public static final String PARAM_INPUT_REGISTER = "inputRegister";
+	public static final String PARAM_INPUT_JSP_REG  = "JSP_REG";
+	public static final String PARAM_INPUT_JSP_AUT  = "JSP_AUT";
+	public static final String PARAM_INPUT_POSTPONE = "inputPostpone";
+	public static final String PARAM_ISSUER_NAME    = "issuerName";
+	public static final String PARAM_USER_NAME      = "useUserName";
+	public static final String PARAM_USER_NAME_ATTR = "userNameAttribute";
+	public static final String PARAM_REENROLL_ATTR  = "reEnrollmentAttribute";
+	public static final String PARAM_EXP_COOKIE     = "expirationCookie";
+	public static final String PARAM_EXP_ATTRIBUTE  = "expirationAttribute";
+	public static final String PARAM_EXP_TIME       = "expirationTime";
 
 	public static final String STORE_EDIR = "EDIR";
 	public static final String STORE_NIDP = "NIDP";

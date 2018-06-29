@@ -111,7 +111,7 @@ public class IDPRedirect extends LocalAuthenticationClass
 				m_Properties, m_Session);
 		if (isFirstCallAfterPrevMethod())
 		{
-			logger.log(Level.INFO, "Start authentication, redirecting to " + idpID);
+			logger.log(Level.INFO, "Start authentication, redirecting to {0}", idpID);
 			return startAuthenticationProcess();
 		}
 		else if (currentPrincipal == null)
@@ -138,7 +138,7 @@ public class IDPRedirect extends LocalAuthenticationClass
 					"No principal created from SAML response, assuming authentication failed.");
 			return technicalFailureOccurred();
 		}
-		logger.log(Level.INFO, "No principal found, redirecting to " + idpID);
+		logger.log(Level.INFO, "No principal found, redirecting to {0}", idpID);
 		return startAuthenticationProcess();
 	}
 

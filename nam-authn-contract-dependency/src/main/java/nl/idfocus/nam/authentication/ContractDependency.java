@@ -53,7 +53,7 @@ public class ContractDependency extends LocalAuthenticationClass
 				m_Properties, m_Session);
 		if (currentPrincipal == null)
 		{
-			logger.log(Level.INFO, "No principal found, redirecting to " + contractId);
+			logger.log(Level.INFO, "No principal found, redirecting to {0}", contractId);
 			return redirectToContract();
 		}
 		logger.log(Level.INFO, "A principal was already logged in");
@@ -87,7 +87,7 @@ public class ContractDependency extends LocalAuthenticationClass
 	private String buildReturnURL()
 	{
 		String returl = getReturnURL();
-		logger.log(Level.INFO, "URL to return to after identifying user: " + returl);
+		logger.log(Level.INFO, "URL to return to after identifying user: {0}", returl);
 		try
 		{
 			returl = URLEncoder.encode(getReturnURL(), "UTF-8");

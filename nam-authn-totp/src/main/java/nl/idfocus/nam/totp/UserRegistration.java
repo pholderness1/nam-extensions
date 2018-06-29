@@ -11,7 +11,7 @@ import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -263,7 +263,7 @@ public class UserRegistration implements Serializable
     private BufferedImage generateQRImage( String text ) throws TOTPException
     {
         // Create the ByteMatrix for the QR-Code that encodes the given String
-        Hashtable<EncodeHintType,Object> hintMap = new Hashtable<>();
+        HashMap<EncodeHintType,Object> hintMap = new HashMap<>();
         hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
 
         QRCodeWriter qrCodeWriter = new QRCodeWriter();

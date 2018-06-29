@@ -4,20 +4,28 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.novell.nidp.NIDPException;
 import com.novell.nidp.NIDPPrincipal;
 import com.novell.nidp.common.authority.UserAuthority;
 
 import nl.idfocus.nam.totp.TOTPException;
+import nl.idfocus.nam.util.LogFormatter;
 
 public class PwmStore implements ISecretStore
 {
-	public static final String	PROP_STORAGE_ATTRIBUTE_NAME	= "secretKeyAttribute";
+    private static final Logger logger   = LogFormatter.getConsoleLogger( PwmStore.class.getName() );
+
+    public static final String	PROP_STORAGE_ATTRIBUTE_NAME	= "secretKeyAttribute";
 	public static final String	PROP_STORAGE_FORMAT_NAME	= "secretKeyFormat";
 
 	public static final String	FORMAT_JSON					= "JSON";
@@ -178,15 +186,22 @@ public class PwmStore implements ISecretStore
 	private List<Integer> retrieveScratchcodesFromJSONValue(String jsonValue)
 	{
 		// TODO 
-		List<Integer> result = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
 		return result;
 	}
 
 	private String retrieveKeyFromJSONValue(String jsonValue)
 	{
-		// TODO
-		StringBuilder result = new StringBuilder();
-		return result.toString();
+		try {
+            JSONObject json = new JSONObject(jsonValue);
+            if (json.has("secret"))
+            {
+                return json.getString("secret");
+            }
+		} catch (JSONException e) {
+		    logger.log(Level.SEVERE, "Error parsing TOTP information from PWM JSON", e);
+		}
+		return "";
 	}
 
 }
