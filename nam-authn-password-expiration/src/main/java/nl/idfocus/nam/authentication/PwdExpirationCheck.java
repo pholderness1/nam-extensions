@@ -71,6 +71,8 @@ public class PwdExpirationCheck extends LocalAuthenticationClass
 	private static Logger logger = LogFormatter.getConsoleLogger( PwdExpirationCheck.class.getName() );
 	private Level loglevel = Level.INFO;
 	private Level logerror = Level.SEVERE;
+	// JSP / Session settings
+	public final String SETTING_ALLOW_SKIP = "allowskip";
 	// Constants: option names
 	private final String MODE_ID                 = "Mode";
 	private final String TRIGGER_GRACE_ID        = "GracetimeNumber";
@@ -167,7 +169,10 @@ public class PwdExpirationCheck extends LocalAuthenticationClass
 			if ( isUserPrompted( expAttrs ) )
 			{
 				logger.log( loglevel, "prompting user for pwd change");
-				prepareJsp( null );
+				boolean skipAllowed = allowSkipButton();
+				// add allow skip setting to session to ensure consistency during different actions
+				m_Request.getSession(true).setAttribute(SETTING_ALLOW_SKIP, skipAllowed);
+				prepareJsp( null, skipAllowed );
 				return SHOW_JSP;
 			}
 			else
@@ -175,9 +180,10 @@ public class PwdExpirationCheck extends LocalAuthenticationClass
 				return AUTHENTICATED;
 			}
 		}
-		// Check skip button
+		// Check skip button and allow setting from session
 		String skip = m_Request.getParameter( "pwdsbutton" );
-		if ( skip != null && skip.equalsIgnoreCase("overslaan") && allowSkipButton() )
+		boolean skipAllowed = (Boolean) m_Request.getSession().getAttribute(SETTING_ALLOW_SKIP);
+		if ( skip != null && skip.equalsIgnoreCase("overslaan") && skipAllowed )
 		{
 			return AUTHENTICATED;
 		}
@@ -197,14 +203,14 @@ public class PwdExpirationCheck extends LocalAuthenticationClass
 			else
 			{
 				// TODO get text from multi-language properties
-				prepareJsp( "wachtwoord wijzigen mislukt: "+nmasError );
+				prepareJsp( "wachtwoord wijzigen mislukt: "+nmasError, skipAllowed );
 				return SHOW_JSP;
 			}
 		}
 		else
 		{
 			// TODO get text from multi-language properties
-			prepareJsp( "wachtwoorden zijn niet ingevuld of niet gelijk" );
+			prepareJsp( "wachtwoorden zijn niet ingevuld of niet gelijk", skipAllowed );
 			return SHOW_JSP;
 		}
 	}
@@ -472,7 +478,7 @@ public class PwdExpirationCheck extends LocalAuthenticationClass
         cachePushed.addCache(session.getID(), cache);
 	}
 
-	private void prepareJsp( String error )
+	private void prepareJsp( String error, boolean skip )
 	{
 		String jsp = getProperty( AuthnConstants.PROPERTY_JSP );
 		if ( jsp == null || jsp.length() == 0 )
@@ -492,7 +498,7 @@ public class PwdExpirationCheck extends LocalAuthenticationClass
 			m_PageToShow.addAttribute( "error", error );
 		}
 		m_PageToShow.addAttribute( "numtogo", Integer.toString( getNumToGo( expAttrs ) ) );
-		m_PageToShow.addAttribute( "allowskip", allowSkipButton() );			
+		m_PageToShow.addAttribute( SETTING_ALLOW_SKIP, skip );			
 	}
 
 	/**
@@ -503,7 +509,7 @@ public class PwdExpirationCheck extends LocalAuthenticationClass
 	 */
 	private String[] getNMASPolicy( NIDPPrincipal princ ) 
 	{
-		List<PwdPolicy> attributes = new ArrayList<PwdPolicy>();
+		List<PwdPolicy> attributes = new ArrayList<>();
     	LdapContext ctx = getLdapContextForPrincipalUserstore( princ );
 		try 
 		{
