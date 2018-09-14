@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>nl.idfocus.nam</groupId>
 		<artifactId>nam-parent</artifactId>
-		<version>1.0.3-SNAPSHOT</version>
+		<version>1.0.2</version>
 	</parent>
 	<artifactId>nam-playground</artifactId>
 	<name>NAM: Playground Modules for Education</name>
