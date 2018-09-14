@@ -27,7 +27,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.netiq.security</groupId>
-			<artifactId>sso</artifactId>
+			<artifactId>jsso</artifactId>
 			<version>${jsso.version}</version>
 			<scope>provided</scope>
 		</dependency>
