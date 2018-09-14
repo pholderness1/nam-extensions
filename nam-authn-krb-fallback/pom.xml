@@ -52,7 +52,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.netiq</groupId>
+			<groupId>com.netiq.nam</groupId>
 			<artifactId>jcc</artifactId>
 			<version>${nam.version}</version>
 			<scope>test</scope>
