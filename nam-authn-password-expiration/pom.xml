@@ -25,9 +25,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.netiq.nmas</groupId>
+			<groupId>com.netiq.security</groupId>
 			<artifactId>nmastoolkit</artifactId>
-			<version>2009.11.11</version>
+			<version>2013.04.09</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
