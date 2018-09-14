@@ -26,7 +26,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.netiq.security</groupId>
-			<artifactId>nmastoolkit</artifactId>
+			<artifactId>nmas-toolkit</artifactId>
 			<version>2013.04.09</version>
 			<scope>provided</scope>
 		</dependency>
