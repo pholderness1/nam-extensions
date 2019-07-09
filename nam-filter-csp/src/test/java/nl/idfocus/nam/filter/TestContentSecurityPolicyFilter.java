@@ -95,6 +95,14 @@ public class TestContentSecurityPolicyFilter
         contentSecurityPolicyFilter.doFilter(request, response, filterChain);
         assertHeader(CONTENT_SECURITY_POLICY_HEADER, "default-src 'self'; connect-src 'none'");
     }
+  
+    @Test
+    public void testDefaultSrcIsSelfAndConnectSrcIsSelf() throws IOException, ServletException 
+    {
+        contentSecurityPolicyFilter.init(mockFilterConfig(KEYWORD_SELF, null, null, null, null, null, null, null, null, KEYWORD_SELF, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null));
+        contentSecurityPolicyFilter.doFilter(request, response, filterChain);
+        assertHeader(CONTENT_SECURITY_POLICY_HEADER, "default-src 'self'");
+    }
     
     @Test
     public void testImageSrc() throws IOException, ServletException 
