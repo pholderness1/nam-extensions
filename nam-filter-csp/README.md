@@ -1,7 +1,7 @@
 Content Security Policy Filter (NAM)
 ===========================
 
-Adds the 'Content-Security-Policy' or 'Content-Security-Policy-Report-Only' Header to the response for the NAM 4.3 Identity Provider (Tomcat 8). NAM 4.3 only supports antiClickJacking (HTTP Header Security Filter) via X-Content-Type-Options natively which is a legacy non standard implementation. This filters add 'Content-Security-Policy' 1.0 and 2.0 capabilities to primarly bypass iframe content embedding issues with NAM.
+Adds the 'Content-Security-Policy' or 'Content-Security-Policy-Report-Only' Header to the response for the NAM 4.3 Identity Provider (Tomcat 8). NAM 4.3 only supports antiClickJacking (HTTP Header Security Filter) via X-Content-Type-Options natively which is a legacy non standard implementation. This filters add 'Content-Security-Policy' 2.0 and 3.0 capabilities to primarly bypass iframe content embedding issues with NAM.
 
 Also see: 
  - http://content-security-policy.com/
