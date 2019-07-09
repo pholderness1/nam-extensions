@@ -78,6 +78,50 @@ Here is an example full configuration of the ContentSecurityPolicyFilter.
                <param-name>frame-ancestors</param-name>
                <param-value>'self' https://www.example.com</param-value>
             </init-param>
+           <init-param>
+               <param-name>script-src-elem</param-name>
+               <param-value>'self'</param-value>
+            </init-param>
+           <init-param>
+               <param-name>script-src-attr</param-name>
+               <param-value>'self'</param-value>
+            </init-param>
+           <init-param>
+               <param-name>style-src-elem</param-name>
+               <param-value>'nonce-abc'</param-value>
+            </init-param>
+           <init-param>
+               <param-name>style-src-attr</param-name>
+               <param-value>'unsafe-inline'</param-value>
+            </init-param>
+           <init-param>
+               <param-name>frame-src</param-name>
+               <param-value>'self' https://www.example.com</param-value>
+            </init-param>
+           <init-param>
+               <param-name>worker-src</param-name>
+               <param-value>'self' https://www.example.com</param-value>
+            </init-param>
+           <init-param>
+               <param-name>manifest-src</param-name>
+               <param-value>'self' https://www.example.com</param-value>
+            </init-param>
+           <init-param>
+               <param-name>prefetch-src</param-name>
+               <param-value>'self' https://www.example.com</param-value>
+            </init-param>
+           <init-param>
+               <param-name>base-uri</param-name>
+               <param-value>'self' https://www.example.com</param-value>
+            </init-param>
+           <init-param>
+               <param-name>navigate-to</param-name>
+               <param-value>'self' https://www.example.com</param-value>
+            </init-param>
+           <init-param>
+               <param-name>report-to</param-name>
+               <param-value>csp-endpoint</param-value>
+            </init-param>
         </filter>
         
         <filter-mapping> 
