@@ -1,8 +1,6 @@
 package nl.idfocus.nam.filter;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -244,55 +242,15 @@ public class ContentSecurityPolicyFilter implements Filter
 
     private void addDirectiveToContentSecurityPolicy(StringBuilder contentSecurityPolicy, String directiveName, String value, Directive directiveType) 
     {
-    	// use reflection to call the matching method for each directive
-    	try {
-    		Method method = ContentSecurityPolicyFilter.class.getDeclaredMethod("addDirective" + directiveType.name(), StringBuilder.class, String.class, String.class);
-    		method.setAccessible(true);
-    		method.invoke(this,contentSecurityPolicy, directiveName, value);
-    	} catch (Exception e) {		
-    		logger.error("Unable to determine directive type " + e);
-    	}
-    	
-    }
-
-    @SuppressWarnings("unused")
-	private void addDirectiveFetch(StringBuilder contentSecurityPolicy, String directiveName, String value) 
-    {
         if (StringUtils.isNotBlank(value)) 
         {
-        	if (defaultSrc.equals(value)) {
+        	if (directiveType == Directive.Fetch && defaultSrc.equals(value)) {
         		logger.info("Skipping Fetch Directive {} = {}, because it is redudandant to {} = {}", directiveName, value, DEFAULT_SRC, defaultSrc);
         	} else {
         		contentSecurityPolicy.append("; ").append(directiveName).append(" ").append(value);
         	}
         }
-    }
-
-    @SuppressWarnings("unused")
-	private void addDirectiveNavigation(StringBuilder contentSecurityPolicy, String directiveName, String value) 
-    {
-        if (StringUtils.isNotBlank(value)) 
-        {
-        	contentSecurityPolicy.append("; ").append(directiveName).append(" ").append(value);
-        }
-    }
-    
-    @SuppressWarnings("unused")
-	private void addDirectiveDocument(StringBuilder contentSecurityPolicy, String directiveName, String value) 
-    {
-        if (StringUtils.isNotBlank(value)) 
-        {
-        	contentSecurityPolicy.append("; ").append(directiveName).append(" ").append(value);
-        }
-    }
-    
-    @SuppressWarnings("unused")
-	private void addDirectiveReporting(StringBuilder contentSecurityPolicy, String directiveName, String value) 
-    {
-        if (StringUtils.isNotBlank(value)) 
-        {
-        	contentSecurityPolicy.append("; ").append(directiveName).append(" ").append(value);
-        }
+    	
     }
 
     private void addSandboxDirectiveToContentSecurityPolicy(StringBuilder contentSecurityPolicy, String value) {

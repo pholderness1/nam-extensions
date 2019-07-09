@@ -10,6 +10,7 @@ import static nl.idfocus.nam.filter.ContentSecurityPolicyFilter.FORM_ACTION;
 import static nl.idfocus.nam.filter.ContentSecurityPolicyFilter.FRAME_ANCESTORS;
 import static nl.idfocus.nam.filter.ContentSecurityPolicyFilter.IMG_SRC;
 import static nl.idfocus.nam.filter.ContentSecurityPolicyFilter.KEYWORD_SELF;
+import static nl.idfocus.nam.filter.ContentSecurityPolicyFilter.KEYWORD_NONE;
 import static nl.idfocus.nam.filter.ContentSecurityPolicyFilter.MEDIA_SRC;
 import static nl.idfocus.nam.filter.ContentSecurityPolicyFilter.OBJECT_SRC;
 import static nl.idfocus.nam.filter.ContentSecurityPolicyFilter.PLUGIN_TYPES;
@@ -86,7 +87,15 @@ public class TestContentSecurityPolicyFilter
         contentSecurityPolicyFilter.doFilter(request, response, filterChain);
         assertHeader(CONTENT_SECURITY_POLICY_HEADER, "default-src 'self'");
     }
-
+    
+    @Test
+    public void testDefaultSrcIsSelfAndConnectSrcIsNone() throws IOException, ServletException 
+    {
+        contentSecurityPolicyFilter.init(mockFilterConfig(KEYWORD_SELF, null, null, null, null, null, null, null, null, KEYWORD_NONE, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null));
+        contentSecurityPolicyFilter.doFilter(request, response, filterChain);
+        assertHeader(CONTENT_SECURITY_POLICY_HEADER, "default-src 'self'; connect-src 'none'");
+    }
+    
     @Test
     public void testImageSrc() throws IOException, ServletException 
     {
