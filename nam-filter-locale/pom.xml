@@ -3,7 +3,7 @@
   <parent>
     <groupId>nl.idfocus.nam</groupId>
     <artifactId>nam-parent</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4-SNAPSHOT</version>
   </parent>
   <artifactId>nam-filter-locale</artifactId>
   <name>NAM: Locale Request Filter Module</name>
