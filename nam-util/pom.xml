@@ -32,6 +32,7 @@
 							<goal>jar</goal>
 						</goals>
 						<configuration>
+							<failOnError>false</failOnError>
 							<doclint>none</doclint>
 						</configuration>
 					</execution>
