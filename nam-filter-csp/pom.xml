@@ -114,7 +114,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<jgitflow.version>1.0-m5.1</jgitflow.version>
-		<mvn.javadoc.version>2.10.4</mvn.javadoc.version>
+		<mvn.javadoc.version>3.1.1</mvn.javadoc.version>
 		<mvn.compiler.version>3.6.1</mvn.compiler.version>
 		<file.encoding>UTF-8</file.encoding>
 		<slf4j.version>1.7.12</slf4j.version>
