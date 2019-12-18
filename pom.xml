@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nl.idfocus.nam</groupId>
 	<artifactId>nam-parent</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.3</version>
 	<packaging>pom</packaging>
 	<name>NetIQ Access Manager Extensions from IDFocus</name>
 	<description>Authentication modules, policy extensions, filters and more</description>
