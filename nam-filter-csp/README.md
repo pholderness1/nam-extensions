@@ -1,7 +1,7 @@
 Content Security Policy Filter (NAM)
 ===========================
 
-Adds the 'Content-Security-Policy' or 'Content-Security-Policy-Report-Only' Header to the response for the NAM 4.3 Identity Provider (Tomcat 8). NAM 4.3 only supports antiClickJacking (HTTP Header Security Filter) via X-Content-Type-Options natively which is a legacy non standard implementation. This filters add 'Content-Security-Policy' 1.0 and 2.0 capabilities to primarly bypass iframe content embedding issues with NAM.
+Adds the 'Content-Security-Policy' or 'Content-Security-Policy-Report-Only' Header to the response for the NAM 4.3 Identity Provider (Tomcat 8). NAM 4.3 only supports antiClickJacking (HTTP Header Security Filter) via X-Content-Type-Options natively which is a legacy non standard implementation. This filters add 'Content-Security-Policy' 2.0 and 3.0 capabilities to primarly bypass iframe content embedding issues with NAM.
 
 Also see: 
  - http://content-security-policy.com/
@@ -77,6 +77,50 @@ Here is an example full configuration of the ContentSecurityPolicyFilter.
            <init-param>
                <param-name>frame-ancestors</param-name>
                <param-value>'self' https://www.example.com</param-value>
+            </init-param>
+           <init-param>
+               <param-name>script-src-elem</param-name>
+               <param-value>'self'</param-value>
+            </init-param>
+           <init-param>
+               <param-name>script-src-attr</param-name>
+               <param-value>'self'</param-value>
+            </init-param>
+           <init-param>
+               <param-name>style-src-elem</param-name>
+               <param-value>'nonce-abc'</param-value>
+            </init-param>
+           <init-param>
+               <param-name>style-src-attr</param-name>
+               <param-value>'unsafe-inline'</param-value>
+            </init-param>
+           <init-param>
+               <param-name>frame-src</param-name>
+               <param-value>'self' https://www.example.com</param-value>
+            </init-param>
+           <init-param>
+               <param-name>worker-src</param-name>
+               <param-value>'self' https://www.example.com</param-value>
+            </init-param>
+           <init-param>
+               <param-name>manifest-src</param-name>
+               <param-value>'self' https://www.example.com</param-value>
+            </init-param>
+           <init-param>
+               <param-name>prefetch-src</param-name>
+               <param-value>'self' https://www.example.com</param-value>
+            </init-param>
+           <init-param>
+               <param-name>base-uri</param-name>
+               <param-value>'self' https://www.example.com</param-value>
+            </init-param>
+           <init-param>
+               <param-name>navigate-to</param-name>
+               <param-value>'self' https://www.example.com</param-value>
+            </init-param>
+           <init-param>
+               <param-name>report-to</param-name>
+               <param-value>csp-endpoint</param-value>
             </init-param>
         </filter>
         
