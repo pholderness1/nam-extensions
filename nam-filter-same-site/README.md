@@ -11,9 +11,8 @@ The basic algorithm is:
 2. Extract all Set-Cookie headers.
 3. For each header.
   1. Parse the Set-Cookie header to retrieve the cookie name
-  2. If the cookie header does not already have the same-site flag set.
-    * Append the same-site flag to the cookie with the value "None".
-  3. Else copy the header back into the response unmodified.
+  2. If the cookie header does not already have the same-site flag set: append the same-site flag to the cookie with the value "None".
+  3. Else: copy the header back into the response unmodified.
 
 
 
