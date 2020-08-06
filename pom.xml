@@ -24,6 +24,7 @@
 		<module>nam-filter-csp</module>
 		<module>nam-filter-cors</module>
 		<module>nam-filter-locale</module>
+		<module>nam-filter-same-site</module>
 	</modules>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
