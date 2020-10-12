@@ -91,7 +91,7 @@
 	<properties>
 		<nam.version>4.2.2</nam.version>
 		<servlet.version>3.0.1</servlet.version>
-		<junit.version>4.11</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<mockito.version>2.3.4</mockito.version>
 	</properties>
 	<name>NAM: TOTP or SMS Token Authentication Module</name>
