@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>nl.idfocus.nam</groupId>
 		<artifactId>nam-parent</artifactId>
-		<version>1.0.4-SNAPSHOT</version>
+		<version>1.0.5-SNAPSHOT</version>
 	</parent>
 	<artifactId>nam-filter-cors</artifactId>
 	<name>NAM: CORS Filter Implementation</name>
