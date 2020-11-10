@@ -245,7 +245,7 @@ public class ContentSecurityPolicyFilter implements Filter
         if (StringUtils.isNotBlank(value)) 
         {
         	if (directiveType == Directive.Fetch && defaultSrc.equals(value)) {
-        		logger.info("Skipping Fetch Directive {} = {}, because it is redudandant to {} = {}", directiveName, value, DEFAULT_SRC, defaultSrc);
+        		logger.debug("Skipping Fetch Directive {} = {}, because it is redudandant to {} = {}", directiveName, value, DEFAULT_SRC, defaultSrc);
         	} else {
         		contentSecurityPolicy.append("; ").append(directiveName).append(" ").append(value);
         	}
