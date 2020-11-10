@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>nl.idfocus.nam</groupId>
 		<artifactId>nam-parent</artifactId>
-		<version>1.0.2</version>
+		<version>1.0.4</version>
 	</parent>
 	<artifactId>nam-util</artifactId>
 	<name>NAM: Utility Libraries</name>
@@ -18,6 +18,23 @@
 						<goals>
 							<goal>test-jar</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${mvn.javadoc.version}</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<failOnError>false</failOnError>
+							<doclint>none</doclint>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -93,5 +110,6 @@
 		<junit.version>4.11</junit.version>
 		<mockito.version>1.10.19</mockito.version>
 		<powermock.version>1.6.6</powermock.version>
+		<mvn.javadoc.version>3.1.1</mvn.javadoc.version>
 	</properties>
 </project>
