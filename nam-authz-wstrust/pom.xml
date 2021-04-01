@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>nl.idfocus.nam</groupId>
 		<artifactId>nam-parent</artifactId>
-		<version>1.0.5</version>
+		<version>1.0.6-SNAPSHOT</version>
 	</parent>
 	<artifactId>nam-authz-wstrust</artifactId>
 	<name>NAM: WS-Trust Authorization Modules</name>
