@@ -18,9 +18,13 @@ Here is an example full configuration of the ContentSecurityPolicyFilter.
         <filter>
            <filter-name>ContentSecurityPolicyFilter</filter-name>
            <filter-class>nl.idfocus.nam.filter.ContentSecurityPolicyFilter</filter-class>
-           
            <init-param>
-               <!-- If not specified the default is false -->
+               <!-- Whether to enable nonce generator for script-src and style-src. If not specified the default is false -->
+               <param-name>enable-nonce</param-name>
+               <param-value>true</param-value>
+            </init-param>           
+           <init-param>
+               <!-- Whether the browser should report violations. If not specified the default is false -->
                <param-name>report-only</param-name>
                <param-value>false</param-value>
             </init-param>
@@ -46,13 +50,15 @@ Here is an example full configuration of the ContentSecurityPolicyFilter.
                <param-name>img-src</param-name>
                 <param-value>http://*.example.com</param-value>
             </init-param>
+            <!-- script-src can be used with a dynamic nonce. Set 'enable-nonce' to 'true' and add the directive 'nonce-{nonce}'. --> 
            <init-param>
                <param-name>script-src</param-name>
-               <param-value>'self' js.example.com</param-value>
+               <param-value>'self' js.example.com nonce-{nonce}</param-value>
             </init-param>
            <init-param>
+            <!-- style-src can be used with a dynamic nonce. Set 'enable-nonce' to 'true' and add the directive 'nonce-{nonce}'. -->
                <param-name>style-src</param-name>
-               <param-value>'self'</param-value>
+               <param-value>'self' nonce-{nonce}</param-value>
             </init-param>  
            <init-param>
                <param-name>connect-src</param-name>

@@ -1,6 +1,9 @@
 package nl.idfocus.nam.filter;
 
 import java.io.IOException;
+import java.security.SecureRandom;
+import java.util.Base64;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -29,6 +32,9 @@ public class ContentSecurityPolicyFilter implements Filter
     public static final String REPORT_URI = "report-uri";
     /** Instructs the browser to POST a reports of policy failures to this URI */
     public static final String REPORT_TO = "report-to";
+    
+    /** Whether we should generate a nonce **/
+    public static final String ENABLE_NONCE = "enable-nonce";
     
     /**
      * Enables a sandbox for the requested resource similar to the iframe sandbox attribute.
@@ -83,7 +89,10 @@ public class ContentSecurityPolicyFilter implements Filter
  
     public static final String KEYWORD_NONE = "'none'";
     public static final String KEYWORD_SELF = "'self'";
-
+    
+    private static final int NONCE_SIZE = 32; //recommended is at least 128 bits/16 bytes
+    private static final String CSP_NONCE_ATTRIBUTE = "CSP_NONCE_VALUE";
+    
     enum Directive {
     	  Fetch,
     	  Document,
@@ -92,6 +101,8 @@ public class ContentSecurityPolicyFilter implements Filter
     	}
     
     private boolean reportOnly;
+    private boolean enableNonce;
+    private SecureRandom prng = new SecureRandom();
     private String reportUri;
     private String reportTo;
     private String sandbox;
@@ -99,10 +110,12 @@ public class ContentSecurityPolicyFilter implements Filter
     private String imgSrc;
     private String scriptSrc;
     private String scriptSrcElem;
+    private String scriptSrcDynamic;
     private String scriptSrcAttr;
     private String styleSrc;
     private String styleSrcElem;
     private String styleSrcAttr;
+    private String styleSrcDynamic;
     private String fontSrc;
     private String connectSrc;
     private String objectSrc;
@@ -117,7 +130,7 @@ public class ContentSecurityPolicyFilter implements Filter
     private String navigateTo;
     private String baseUri;
     private String pluginTypes;
-
+    
 	/**
 	 * Default constructor.
 	 */
@@ -142,6 +155,7 @@ public class ContentSecurityPolicyFilter implements Filter
 	        defaultSrc = getParameterValue(filterConfig, DEFAULT_SRC, KEYWORD_NONE);
 	        imgSrc = getParameterValue(filterConfig, IMG_SRC);
 	        scriptSrc = getParameterValue(filterConfig, SCRIPT_SRC);
+	        enableNonce = getParameterBooleanValue(filterConfig, ENABLE_NONCE);
 	        scriptSrcElem = getParameterValue(filterConfig, SCRIPT_SRC_ELEM);
 	        scriptSrcAttr = getParameterValue(filterConfig, SCRIPT_SRC_ATTR);
 	        styleSrc = getParameterValue(filterConfig, STYLE_SRC);
@@ -164,7 +178,6 @@ public class ContentSecurityPolicyFilter implements Filter
     	} catch (Exception e) {
     		logger.error("Unable to read Filter Configuration");
     	}
-    	
     }
 
     private String getParameterValue(FilterConfig filterConfig, String paramName, String defaultValue) 
@@ -197,26 +210,46 @@ public class ContentSecurityPolicyFilter implements Filter
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException 
     {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
+ 
+        // Generate nonce
+        if (enableNonce) {
+        	String nonce = generateNonce();
+        	request.setAttribute(CSP_NONCE_ATTRIBUTE, "nonce=\"" + nonce + "\"");
+        	scriptSrcDynamic = scriptSrc.replaceAll("\\{nonce\\}", nonce);
+        	styleSrcDynamic = styleSrc.replaceAll("\\{nonce\\}", nonce);        	
+        	logger.debug("Generated nonce {} , {}", scriptSrcDynamic, styleSrcDynamic);
+        	//scriptSrcDynamic = scriptSrcDynamic.replace("{nonce}", nonce);
+        	//styleSrcDynamic = styleSrcDynamic.replace("{nonce}", nonce);
+        } else {
+        	request.setAttribute(CSP_NONCE_ATTRIBUTE, "");
+        	scriptSrcDynamic = scriptSrc.replaceAll("[\\s]*nonce\\-\\{nonce\\}[\\s]*", "");
+        	styleSrcDynamic = styleSrc.replaceAll("[\\s]*nonce\\-\\{nonce\\}[\\s]*", "");
+        	logger.debug("Removing nonce {} , {}", scriptSrcDynamic, styleSrcDynamic);
+        	//scriptSrcDynamic = scriptSrcDynamic.replace("nonce-{nonce}", "");
+        	//styleSrcDynamic = styleSrcDynamic.replace("nonce-{nonce}", "");
+        }
+  
+        // Generate CSP response headers
         String contentSecurityPolicyHeaderName = reportOnly ? CONTENT_SECURITY_POLICY_REPORT_ONLY_HEADER : CONTENT_SECURITY_POLICY_HEADER;
         String contentSecurityPolicy = getContentSecurityPolicy();
 
         logger.debug("Adding Header {} = {}", contentSecurityPolicyHeaderName, contentSecurityPolicy);
         httpResponse.addHeader(contentSecurityPolicyHeaderName, contentSecurityPolicy);
-
+        
         // pass the request along the filter chain
         chain.doFilter(request, response);
     }
 
-    private String getContentSecurityPolicy() 
+    private String getContentSecurityPolicy() throws ServletException 
     {
     	// construct CSP Header value
     	StringBuilder contentSecurityPolicy = new StringBuilder(DEFAULT_SRC).append(" ").append(defaultSrc);
 
         addDirectiveToContentSecurityPolicy(contentSecurityPolicy, IMG_SRC, imgSrc, Directive.Fetch);
-        addDirectiveToContentSecurityPolicy(contentSecurityPolicy, SCRIPT_SRC, scriptSrc, Directive.Fetch);
+        addDirectiveToContentSecurityPolicy(contentSecurityPolicy, SCRIPT_SRC, scriptSrcDynamic, Directive.Fetch);
         addDirectiveToContentSecurityPolicy(contentSecurityPolicy, SCRIPT_SRC_ELEM, scriptSrcElem, Directive.Fetch);
         addDirectiveToContentSecurityPolicy(contentSecurityPolicy, SCRIPT_SRC_ATTR, scriptSrcAttr, Directive.Fetch);
-        addDirectiveToContentSecurityPolicy(contentSecurityPolicy, STYLE_SRC, styleSrc, Directive.Fetch);
+        addDirectiveToContentSecurityPolicy(contentSecurityPolicy, STYLE_SRC, styleSrcDynamic, Directive.Fetch);
         addDirectiveToContentSecurityPolicy(contentSecurityPolicy, STYLE_SRC_ELEM, styleSrcElem, Directive.Fetch);
         addDirectiveToContentSecurityPolicy(contentSecurityPolicy, STYLE_SRC_ATTR, styleSrcAttr, Directive.Fetch);
         addDirectiveToContentSecurityPolicy(contentSecurityPolicy, FONT_SRC, fontSrc, Directive.Fetch);
@@ -245,7 +278,7 @@ public class ContentSecurityPolicyFilter implements Filter
         if (StringUtils.isNotBlank(value)) 
         {
         	if (directiveType == Directive.Fetch && defaultSrc.equals(value)) {
-        		logger.debug("Skipping Fetch Directive {} = {}, because it is redudandant to {} = {}", directiveName, value, DEFAULT_SRC, defaultSrc);
+        		logger.info("Skipping Fetch Directive {} = {}, because it is redudandant to {} = {}", directiveName, value, DEFAULT_SRC, defaultSrc);
         	} else {
         		contentSecurityPolicy.append("; ").append(directiveName).append(" ").append(value);
         	}
@@ -267,6 +300,13 @@ public class ContentSecurityPolicyFilter implements Filter
         }
     }
 
+    private String generateNonce() {
+        byte[] nonceArray = new byte[NONCE_SIZE];
+        this.prng.nextBytes(nonceArray);
+        String nonce = Base64.getEncoder().encodeToString(nonceArray);
+        return nonce;
+    }
+    
 	/**
 	 * @see Filter#destroy()
 	 */
