@@ -68,7 +68,7 @@
 			<!-- Runtime dependency (available on idp), but needed for tests -->
 			<groupId>org.jgroups</groupId>
 			<artifactId>jgroups</artifactId>
-			<version>3.6.9.Final</version>
+			<version>4.0.0.Final</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
